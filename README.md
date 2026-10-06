@@ -12,7 +12,7 @@ E-MIND is reproducible, **task-agnostic data infrastructure for intelligent ener
 
 ## Quick start
 
-Use **Python 3.12** (validated baseline: 3.12.14). Clone over HTTPS:
+Use **Python 3.12** (validated baseline: 3.12.14). The repository is public; clone anonymously over HTTPS:
 
 ```bash
 git clone https://github.com/PabloPallaresFdM/E-MIND.git
@@ -46,7 +46,7 @@ Public software-only baseline: **248 total, 233 passed, 15 skipped, 0 failures, 
 
 ## Get the data
 
-Scientific data are maintained separately from Git. **The public archival data release has not been issued**, and there is no public download or matching integration-fixture distribution yet. Installing the software does not download data. For an authorised standalone package, see [Dataset overview](docs/dataset_overview.md) and [DE_CENT](docs/scenarios/DE_CENT.md) for reading, integrity checks and interpretation. While the repository remains private, cloning requires authorised GitHub access.
+Scientific data are maintained separately from Git. **The public archival data release has not been issued**, and there is no public download or matching integration-fixture distribution yet. Installing the software does not download data. For an authorised standalone package, see [Dataset overview](docs/dataset_overview.md) and [DE_CENT](docs/scenarios/DE_CENT.md) for reading, integrity checks and interpretation.
 
 ## What is available
 

@@ -8,6 +8,8 @@ You need **Git** and **Python 3.12**, or Conda / Miniforge to create a Python 3.
 
 ## Clone and select an environment
 
+The repository is public and supports anonymous HTTPS cloning.
+
 ```bash
 git clone https://github.com/PabloPallaresFdM/E-MIND.git
 cd E-MIND
@@ -68,7 +70,7 @@ A standalone dataset package alone does not supply all accepted integration fixt
 | Environment not activated | Repeat `conda activate emind` or `source .venv/bin/activate` in each new shell. Use `python -m pip` so installation follows that interpreter. |
 | PyArrow missing or extra Parquet skips | Repeat the requirements installation in the active environment; check `python -c "import pyarrow; print(pyarrow.__version__)"`. |
 | `python3.12` / pip / venv unavailable | Install Python 3.12 with your platform's venv support, or use the Conda / Miniforge option. |
-| HTTPS clone denied / repository not found | While private, the repository needs authorised GitHub access and HTTPS authentication through your credential manager. Once public, ordinary HTTPS cloning will work without private-repository permission. |
+| HTTPS clone denied / repository not found | Check the exact public URL above and your network/proxy connection to GitHub. Anonymous HTTPS cloning requires no GitHub authentication. |
 | 15 expected skips | No scientific fixtures are configured; installation has succeeded if the remaining tests pass with no failures/errors. More skips require investigation, especially PyArrow skips. |
 
 ## Next: inspect authorised data
