@@ -1,0 +1,23 @@
+{
+  "snapshot_id": "de_cent_smard_market_utc_tail_20260930",
+  "source_id": "de_smard_day_ahead",
+  "scenario_id": "DE_CENT",
+  "provider": "Bundesnetzagentur | SMARD.de",
+  "url": "https://www.smard.de/nip-download-manager/nip/download/market-data",
+  "method": "POST",
+  "request_headers": {
+    "Content-Type": "application/json"
+  },
+  "request_body_utf8": "{\"request_form\":[{\"moduleIds\":[8004169],\"region\":\"DE-LU\",\"resolution\":\"hour\",\"format\":\"CSV\",\"timestamp_from\":1704063600000,\"timestamp_to\":1704067200000,\"type\":\"discrete\",\"language\":\"en\"}]}",
+  "format": "csv",
+  "maximum_bytes": 100000,
+  "semantic_freeze_status": "VERIFIED",
+  "semantic_freeze_path": "reports/source_samples/03a_smard_metadata/semantic_freeze.json",
+  "semantic_freeze_sha256": "4aa2c028edb205cb42dc585af6dcc1d9e97c186955408ed8bd1e3f0a3ef105a9",
+  "coverage_start_claimed": "2024-01-01T00:00:00+01:00",
+  "coverage_end_claimed": "2024-01-01T01:00:00+01:00 (exclusive)",
+  "native_frequency": "hour",
+  "native_timezone": "Europe/Berlin; CET UTC+1 or CEST UTC+2 applicable at the source time",
+  "native_unit": "\u20ac/MWh",
+  "notes": "Owner-authorised Phase03B minimum UTC tail after raw-backed boundary confirmation. Expected four load quarter-hours or one market hour; preserve original provider bytes. Bundesnetzagentur | SMARD.de; CC BY 4.0; no transformations to raw."
+}

@@ -1,0 +1,30 @@
+{
+  "snapshot_id": "de_cent_smard_market_m2_2025_quarterhour_20261002",
+  "source_id": "de_smard_day_ahead",
+  "scenario_id": "DE_CENT",
+  "provider": "Bundesnetzagentur | SMARD.de",
+  "url": "https://www.smard.de/nip-download-manager/nip/download/market-data",
+  "method": "POST",
+  "request_headers": {
+    "Content-Type": "application/json"
+  },
+  "request_body_utf8": "{\"request_form\":[{\"moduleIds\":[8004169],\"region\":\"DE-LU\",\"resolution\":\"quarterhour\",\"format\":\"CSV\",\"timestamp_from\":1759269600000,\"timestamp_to\":1767225600000,\"type\":\"discrete\",\"language\":\"en\"}]}",
+  "format": "csv",
+  "maximum_bytes": 30000000,
+  "semantic_freeze_status": "VERIFIED",
+  "semantic_freeze_path": "reports/source_samples/03a_smard_metadata/semantic_freeze.json",
+  "semantic_freeze_sha256": "4aa2c028edb205cb42dc585af6dcc1d9e97c186955408ed8bd1e3f0a3ef105a9",
+  "coverage_start_claimed": "2025-09-30T22:00:00Z",
+  "coverage_end_claimed": "2026-01-01T00:00:00Z (exclusive)",
+  "native_frequency": "quarterhour",
+  "native_timezone": "Europe/Berlin; CET UTC+1 or CEST UTC+2 applicable at the source time",
+  "native_unit": "€/MWh",
+  "notes": "New immutable extension snapshot; preserve provider bytes and labels. Bundesnetzagentur | SMARD.de; CC BY 4.0. No harmonisation. Quarter-hour market is native only after local delivery transition; no provider hourly substitution.",
+  "module_id": 8004169,
+  "data_id": 4169,
+  "request_region": "DE-LU",
+  "expected_physical_rows": 8840,
+  "phase": "04-A4",
+  "semantic_basis": "Coordinator-frozen Phase04-A2/A4 identities, native resolutions and exact UTC boundaries; actual export schema/coverage requires post-download audit.",
+  "market_transition_local": "2025-10-01T00:00:00+02:00"
+}

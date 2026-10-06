@@ -1,0 +1,19 @@
+{
+  "snapshot_id": "de_cent_eu_fuel_20260908",
+  "source_id": "eu_ec_weekly_oil_bulletin_diesel",
+  "scenario_id": "DE_CENT",
+  "provider": "European Commission",
+  "url": "https://energy.ec.europa.eu/document/download/906e60ca-8b6a-44e7-8589-652854d2fd3f_en?filename=Weekly_Oil_Bulletin_Prices_History_maticni_4web.xlsx",
+  "method": "GET",
+  "original_filename": "Weekly_Oil_Bulletin_Prices_History_maticni_4web.xlsx",
+  "format": "xlsx",
+  "maximum_bytes": 15000000,
+  "title": "Price developments 2005 onwards (xlsx)",
+  "catalogue_publication_label": "3 SEPTEMBER 2026",
+  "catalogue_url": "https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en",
+  "coverage_start_claimed": "2005 (provider title)",
+  "coverage_end_claimed": "2019-2023 target lies within ongoing history; final row not inspected",
+  "native_frequency": "weekly",
+  "native_timezone": null,
+  "notes": "One original multi-country/multi-product/multi-tax-basis historical workbook explicitly authorized as minimum DE_CENT fuel source; no Germany extraction. Retain European Commission attribution and CC BY 4.0 reuse policy unless specifically indicated otherwise. No E-MIND changes to workbook."
+}

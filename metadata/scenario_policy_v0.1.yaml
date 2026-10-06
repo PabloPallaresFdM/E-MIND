@@ -1,0 +1,63 @@
+{
+  "schema_version": "0.1",
+  "decision_phase": "02B-2",
+  "authority": "Coordinator-approved user instruction; no independent scientific selection",
+  "scenario_classification": {
+    "DE_CENT": "CORE_FULL_MARKET",
+    "DK_WEST": "CORE_FULL_MARKET",
+    "GB": "CORE_FULL_MARKET",
+    "FI_SOUTH": "CORE_CLIMATE_LOAD",
+    "ES_MED": "EXTENSION"
+  },
+  "market_policy": {
+    "DE_CENT": {
+      "candidate_protocols": [
+        "M1_LOCAL_OPEN"
+      ],
+      "protocol": null
+    },
+    "DK_WEST": {
+      "candidate_protocols": [
+        "M1_LOCAL_OPEN"
+      ],
+      "protocol": null
+    },
+    "GB": {
+      "candidate_protocols": [
+        "M1_LOCAL_OPEN"
+      ],
+      "protocol": null
+    },
+    "FI_SOUTH": {
+      "local_market_status": "BLOCKED",
+      "future_options": [
+        "M2_COMMON_OPEN_SIGNAL",
+        "M3_USER_SUPPLIED_LOCAL"
+      ],
+      "protocol": null
+    },
+    "ES_MED": {
+      "local_load_market_status": "USER_SUPPLIED_ONLY",
+      "protocol": "M3_USER_SUPPLIED_LOCAL",
+      "redistributed_in_core": false
+    }
+  },
+  "gb_load": {
+    "canonical_variable": "ND",
+    "available_noncanonical_variables": [
+      "TSD"
+    ],
+    "rationale": "ND excludes station load, pumped-storage pumping and interconnector exports; cleaner demand-shape proxy for later microgrid scaling."
+  },
+  "carbon": {
+    "classification": "DERIVABLE",
+    "scope": "EXTENSION",
+    "mandatory_external_historical_core_v1_source": false,
+    "future_method": "E-MIND-Env may derive emissions from generation mix and documented emission factors",
+    "selected_generation_mix_source": null,
+    "selected_emission_factors": null,
+    "implemented": false
+  },
+  "coordinates_selected": false,
+  "plant_parameters_selected": false
+}

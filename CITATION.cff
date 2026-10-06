@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+type: dataset
+message: >-
+  This is a local release candidate / pre-release artifact, NOT_ISSUED and
+  not archived. Identify the repository, version and release fingerprint.
+title: "E-MIND — European Intelligent Microgrid Energy Decision Benchmark"
+authors:
+  - given-names: Pablo
+    family-names: Pallarés
+version: "0.1.0-rc.1"
+repository-code: "https://github.com/PabloPallaresFdM/E-MIND"
+abstract: >-
+  Data-layer benchmark composed of heterogeneous European energy and weather
+  signals. Upstream provider citations and licenses remain separate.

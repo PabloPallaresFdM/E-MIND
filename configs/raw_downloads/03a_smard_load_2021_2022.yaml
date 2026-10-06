@@ -1,0 +1,23 @@
+{
+  "snapshot_id": "de_cent_smard_load_2021_2022_20260908",
+  "source_id": "de_smard_electrical_load",
+  "scenario_id": "DE_CENT",
+  "provider": "Bundesnetzagentur | SMARD.de",
+  "url": "https://www.smard.de/nip-download-manager/nip/download/market-data",
+  "method": "POST",
+  "request_headers": {
+    "Content-Type": "application/json"
+  },
+  "request_body_utf8": "{\"request_form\":[{\"moduleIds\":[5000410],\"region\":\"DE\",\"resolution\":\"quarterhour\",\"format\":\"CSV\",\"timestamp_from\":1609455600000,\"timestamp_to\":1672527600000,\"type\":\"discrete\",\"language\":\"en\"}]}",
+  "format": "csv",
+  "maximum_bytes": 30000000,
+  "semantic_freeze_status": "VERIFIED",
+  "semantic_freeze_path": "reports/source_samples/03a_smard_metadata/semantic_freeze.json",
+  "semantic_freeze_sha256": "4aa2c028edb205cb42dc585af6dcc1d9e97c186955408ed8bd1e3f0a3ef105a9",
+  "coverage_start_claimed": "2021-01-01",
+  "coverage_end_claimed": "2022-12-31",
+  "native_frequency": "quarterhour",
+  "native_timezone": "Europe/Berlin; CET UTC+1 or CEST UTC+2 applicable at the source time",
+  "native_unit": "MWh",
+  "notes": "Original official grouped export. Request boundaries encode provider local-midnight API parameters only; no conversion of any scientific timestamp or value. Retain Bundesnetzagentur | SMARD.de attribution, CC BY 4.0. CSV actual header and labels audited after retrieval."
+}

@@ -1,0 +1,8 @@
+# Optional provider acquisition/GRIB analysis; not required by the public tests.
+# ecCodes Python bindings require a working native ecCodes runtime.
+# The frozen DE_CENT request contract is configs/weather/de_cent_era5.yaml.
+# Install in a separate environment if acquisition/GRIB inspection is required.
+cdsapi
+eccodes
+# Reuse the pinned public software/Parquet dependencies.
+-r scripts/release/requirements.txt

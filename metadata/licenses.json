@@ -1,0 +1,212 @@
+{
+  "schema_version": "0.1.0",
+  "audit_date": "2026-10-05",
+  "publication_authorized": false,
+  "scope": "Project grants apply only to project contributions; upstream data retain source-specific terms.",
+  "project_code": {
+    "current_license": "MIT",
+    "status": "CLOSED",
+    "rights_holder": "Pablo Pallarés",
+    "scope": "project code only",
+    "authority": "Owner instruction Phase05-A4; owner identity corroborated by repository origin and Git history."
+  },
+  "original_metadata": {
+    "current_license": "CC-BY-4.0",
+    "status": "CLOSED",
+    "rights_holder": "Pablo Pallarés",
+    "scope": "project-authored metadata and documentation only",
+    "authority": "Owner instruction Phase05-A4; owner identity corroborated by repository origin and Git history."
+  },
+  "dataset_license_model": "Per-source terms plus separately selected original compilation/metadata rights; no blanket relicensing of upstream data.",
+  "sources": [
+    {
+      "source_id": "de_smard_day_ahead",
+      "provider": "SMARD",
+      "license_name": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Bundesnetzagentur | SMARD.de. CC BY 4.0. E-MIND aggregates load to hourly intervals and composes the release window; quarter-hour market prices are averaged where applicable.",
+      "redistribution_status": "PERMITTED_WITH_ATTRIBUTION",
+      "modification_status": "PERMITTED_WITH_CHANGE_INDICATION",
+      "raw_bundling_status": "R2_OMITTED_BY_POLICY",
+      "derived_bundling_status": "CLEARED_SCOPED_WITH_CONDITIONS",
+      "raw_redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "raw_class": "R2",
+      "status": "CLOSED",
+      "evidence_urls": [
+        "https://www.smard.de/en/datennutzung",
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "notes": "Market/download data terms, not the general website CC BY-ND content notice."
+    },
+    {
+      "source_id": "de_smard_electrical_load",
+      "provider": "SMARD",
+      "license_name": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Bundesnetzagentur | SMARD.de. CC BY 4.0. E-MIND aggregates load to hourly intervals and composes the release window; quarter-hour market prices are averaged where applicable.",
+      "redistribution_status": "PERMITTED_WITH_ATTRIBUTION",
+      "modification_status": "PERMITTED_WITH_CHANGE_INDICATION",
+      "raw_bundling_status": "R2_OMITTED_BY_POLICY",
+      "derived_bundling_status": "CLEARED_SCOPED_WITH_CONDITIONS",
+      "raw_redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "raw_class": "R2",
+      "status": "CLOSED",
+      "evidence_urls": [
+        "https://www.smard.de/en/datennutzung",
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "notes": "Market/download data terms, not the general website CC BY-ND content notice."
+    },
+    {
+      "source_id": "era5_timeseries_100m_u_component_of_wind",
+      "provider": "ERA5",
+      "license_name": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Modified from ECMWF ERA5 reanalysis, provided through the Copernicus Climate Change Service Climate Data Store. CC BY 4.0. E-MIND extracts the reference grid point and derives aligned hourly weather quantities. Source dataset: https://doi.org/10.24381/cds.adbb2d47.",
+      "redistribution_status": "PERMITTED_WITH_ATTRIBUTION",
+      "modification_status": "PERMITTED_WITH_CHANGE_INDICATION",
+      "raw_bundling_status": "R2_OMITTED_BY_POLICY",
+      "derived_bundling_status": "CLEARED_SCOPED_WITH_CONDITIONS",
+      "raw_redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "raw_class": "R2",
+      "status": "CLOSED",
+      "evidence_urls": [
+        "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
+        "https://cds.climate.copernicus.eu/licences/cc-by",
+        "https://creativecommons.org/licenses/by/4.0/",
+        "https://cds.climate.copernicus.eu/disclaimer-privacy"
+      ],
+      "notes": "Exact accepted product is reanalysis-era5-single-levels, GRIB, DOI 10.24381/cds.adbb2d47; historical time-series source IDs retained. CDS CC-BY revision 1; change effective 2025-07-02, before accepted captures. No upstream sublicensing: recipients receive upstream rights directly; retain terms and indicate changes."
+    },
+    {
+      "source_id": "era5_timeseries_100m_v_component_of_wind",
+      "provider": "ERA5",
+      "license_name": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Modified from ECMWF ERA5 reanalysis, provided through the Copernicus Climate Change Service Climate Data Store. CC BY 4.0. E-MIND extracts the reference grid point and derives aligned hourly weather quantities. Source dataset: https://doi.org/10.24381/cds.adbb2d47.",
+      "redistribution_status": "PERMITTED_WITH_ATTRIBUTION",
+      "modification_status": "PERMITTED_WITH_CHANGE_INDICATION",
+      "raw_bundling_status": "R2_OMITTED_BY_POLICY",
+      "derived_bundling_status": "CLEARED_SCOPED_WITH_CONDITIONS",
+      "raw_redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "raw_class": "R2",
+      "status": "CLOSED",
+      "evidence_urls": [
+        "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
+        "https://cds.climate.copernicus.eu/licences/cc-by",
+        "https://creativecommons.org/licenses/by/4.0/",
+        "https://cds.climate.copernicus.eu/disclaimer-privacy"
+      ],
+      "notes": "Exact accepted product is reanalysis-era5-single-levels, GRIB, DOI 10.24381/cds.adbb2d47; historical time-series source IDs retained. CDS CC-BY revision 1; change effective 2025-07-02, before accepted captures. No upstream sublicensing: recipients receive upstream rights directly; retain terms and indicate changes."
+    },
+    {
+      "source_id": "era5_timeseries_10m_u_component_of_wind",
+      "provider": "ERA5",
+      "license_name": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Modified from ECMWF ERA5 reanalysis, provided through the Copernicus Climate Change Service Climate Data Store. CC BY 4.0. E-MIND extracts the reference grid point and derives aligned hourly weather quantities. Source dataset: https://doi.org/10.24381/cds.adbb2d47.",
+      "redistribution_status": "PERMITTED_WITH_ATTRIBUTION",
+      "modification_status": "PERMITTED_WITH_CHANGE_INDICATION",
+      "raw_bundling_status": "R2_OMITTED_BY_POLICY",
+      "derived_bundling_status": "CLEARED_SCOPED_WITH_CONDITIONS",
+      "raw_redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "raw_class": "R2",
+      "status": "CLOSED",
+      "evidence_urls": [
+        "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
+        "https://cds.climate.copernicus.eu/licences/cc-by",
+        "https://creativecommons.org/licenses/by/4.0/",
+        "https://cds.climate.copernicus.eu/disclaimer-privacy"
+      ],
+      "notes": "Exact accepted product is reanalysis-era5-single-levels, GRIB, DOI 10.24381/cds.adbb2d47; historical time-series source IDs retained. CDS CC-BY revision 1; change effective 2025-07-02, before accepted captures. No upstream sublicensing: recipients receive upstream rights directly; retain terms and indicate changes."
+    },
+    {
+      "source_id": "era5_timeseries_10m_v_component_of_wind",
+      "provider": "ERA5",
+      "license_name": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Modified from ECMWF ERA5 reanalysis, provided through the Copernicus Climate Change Service Climate Data Store. CC BY 4.0. E-MIND extracts the reference grid point and derives aligned hourly weather quantities. Source dataset: https://doi.org/10.24381/cds.adbb2d47.",
+      "redistribution_status": "PERMITTED_WITH_ATTRIBUTION",
+      "modification_status": "PERMITTED_WITH_CHANGE_INDICATION",
+      "raw_bundling_status": "R2_OMITTED_BY_POLICY",
+      "derived_bundling_status": "CLEARED_SCOPED_WITH_CONDITIONS",
+      "raw_redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "raw_class": "R2",
+      "status": "CLOSED",
+      "evidence_urls": [
+        "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
+        "https://cds.climate.copernicus.eu/licences/cc-by",
+        "https://creativecommons.org/licenses/by/4.0/",
+        "https://cds.climate.copernicus.eu/disclaimer-privacy"
+      ],
+      "notes": "Exact accepted product is reanalysis-era5-single-levels, GRIB, DOI 10.24381/cds.adbb2d47; historical time-series source IDs retained. CDS CC-BY revision 1; change effective 2025-07-02, before accepted captures. No upstream sublicensing: recipients receive upstream rights directly; retain terms and indicate changes."
+    },
+    {
+      "source_id": "era5_timeseries_2m_temperature",
+      "provider": "ERA5",
+      "license_name": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Modified from ECMWF ERA5 reanalysis, provided through the Copernicus Climate Change Service Climate Data Store. CC BY 4.0. E-MIND extracts the reference grid point and derives aligned hourly weather quantities. Source dataset: https://doi.org/10.24381/cds.adbb2d47.",
+      "redistribution_status": "PERMITTED_WITH_ATTRIBUTION",
+      "modification_status": "PERMITTED_WITH_CHANGE_INDICATION",
+      "raw_bundling_status": "R2_OMITTED_BY_POLICY",
+      "derived_bundling_status": "CLEARED_SCOPED_WITH_CONDITIONS",
+      "raw_redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "raw_class": "R2",
+      "status": "CLOSED",
+      "evidence_urls": [
+        "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
+        "https://cds.climate.copernicus.eu/licences/cc-by",
+        "https://creativecommons.org/licenses/by/4.0/",
+        "https://cds.climate.copernicus.eu/disclaimer-privacy"
+      ],
+      "notes": "Exact accepted product is reanalysis-era5-single-levels, GRIB, DOI 10.24381/cds.adbb2d47; historical time-series source IDs retained. CDS CC-BY revision 1; change effective 2025-07-02, before accepted captures. No upstream sublicensing: recipients receive upstream rights directly; retain terms and indicate changes."
+    },
+    {
+      "source_id": "era5_timeseries_surface_solar_radiation_downwards",
+      "provider": "ERA5",
+      "license_name": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Modified from ECMWF ERA5 reanalysis, provided through the Copernicus Climate Change Service Climate Data Store. CC BY 4.0. E-MIND extracts the reference grid point and derives aligned hourly weather quantities. Source dataset: https://doi.org/10.24381/cds.adbb2d47.",
+      "redistribution_status": "PERMITTED_WITH_ATTRIBUTION",
+      "modification_status": "PERMITTED_WITH_CHANGE_INDICATION",
+      "raw_bundling_status": "R2_OMITTED_BY_POLICY",
+      "derived_bundling_status": "CLEARED_SCOPED_WITH_CONDITIONS",
+      "raw_redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "raw_class": "R2",
+      "status": "CLOSED",
+      "evidence_urls": [
+        "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=overview",
+        "https://cds.climate.copernicus.eu/licences/cc-by",
+        "https://creativecommons.org/licenses/by/4.0/",
+        "https://cds.climate.copernicus.eu/disclaimer-privacy"
+      ],
+      "notes": "Exact accepted product is reanalysis-era5-single-levels, GRIB, DOI 10.24381/cds.adbb2d47; historical time-series source IDs retained. CDS CC-BY revision 1; change effective 2025-07-02, before accepted captures. No upstream sublicensing: recipients receive upstream rights directly; retain terms and indicate changes."
+    },
+    {
+      "source_id": "eu_ec_weekly_oil_bulletin_diesel",
+      "provider": "EC_FUEL",
+      "license_name": "Commission reuse policy / CC BY 4.0, subject to specific notices and third-party rights",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Source: European Commission, Directorate-General for Energy, Weekly Oil Bulletin. Frozen workbook copyright notice: © European Commission, 2024. E-MIND extracts Germany diesel observations with and without taxes for 2019–2025 and preserves native dates. Commission reuse / CC BY 4.0 applies subject to specific notices and third-party-rights exceptions.",
+      "redistribution_status": "PERMITTED_SCOPED_WITH_ATTRIBUTION",
+      "modification_status": "PERMITTED_WITH_CHANGE_INDICATION",
+      "raw_bundling_status": "R2_OMITTED_BY_POLICY",
+      "derived_bundling_status": "CLEARED_SCOPED_WITH_CONDITIONS",
+      "raw_redistribution_status": "PERMITTED_WITH_CONDITIONS",
+      "raw_class": "R2",
+      "status": "CLOSED",
+      "evidence_urls": [
+        "https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en",
+        "https://commission.europa.eu/legal-notice_en",
+        "https://eur-lex.europa.eu/eli/dec/2011/833/oj/eng/pdf",
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "notes": "Scoped clearance of frozen workbook numeric data/extracted Germany diesel table: reproduction notice in archived workbook plus Commission reuse policy. Preserve specific notice. Excludes logos/photos and any separately identified third-party material; no blanket clearance of every bulletin attachment."
+    }
+  ],
+  "code_license": "MIT",
+  "metadata_license": "CC-BY-4.0",
+  "upstream_relicensed": false,
+  "publication_status": "NOT_ISSUED"
+}

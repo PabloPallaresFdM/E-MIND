@@ -1,0 +1,11 @@
+Citation File Format 1.2.0 JSON Schema — unchanged upstream bytes.
+Source: https://github.com/citation-file-format/citation-file-format/tree/1.2.0
+Schema: https://raw.githubusercontent.com/citation-file-format/citation-file-format/1.2.0/schema.json
+Creators: Citation File Format project contributors (see upstream repository).
+License: Creative Commons Attribution 4.0 International (CC BY 4.0).
+https://creativecommons.org/licenses/by/4.0/
+Upstream legal code / warranty disclaimer:
+https://raw.githubusercontent.com/citation-file-format/citation-file-format/1.2.0/LICENSE
+SHA-256: 0b8d22140da702d766df318dcff3a91af2f39521298dcf36d76315fd99cc169b
+This upstream schema is excluded from the E-MIND MIT project-code grant.
+Retained for offline schema validation; no upstream modifications made.

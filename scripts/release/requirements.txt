@@ -1,0 +1,5 @@
+# Public software tests and offline RC validation (Python 3.12.14).
+# Install before network-disabled testing/builds; PyArrow 25.0.1 validated in A4.
+jsonschema==4.26.0
+PyYAML==6.0.3
+pyarrow==25.0.1
