@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/assets/emind_brand.png" alt="E-MIND — European Microgrid Intelligence for Next-generation Decision-making" width="800">
+</p>
+
 # E-MIND — European Microgrid Intelligence for Next-generation Decision-making
 
 A reproducible multi-region benchmark for energy management research.
