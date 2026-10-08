@@ -231,7 +231,7 @@ def de_cent_spec(repository, data_root, candidate):
                           'metadata_license': 'PENDING_OWNER_SELECTION', 'publication_status': 'PENDING_REVIEW',
                           'sources': sorted(licenses, key=lambda s: s['source_id'])},
         'dataset.json': {'schema_version': SCHEMA_VERSION, 'dataset_name': 'E-MIND', 'release_version': '0.0.0-dev',
-                         'title': 'European Intelligent Microgrid Energy Decision Benchmark', 'build_mode': 'dry-run',
+                         'title': 'European Microgrid Intelligence for Next-generation Decision-making', 'build_mode': 'dry-run',
                          'doi': None, 'citation_status': 'PENDING', 'publication_status': 'PENDING_REVIEW',
                          'scope': 'Data-layer composition only; DE_CENT only'},
         'schema.json': {'schema_version': SCHEMA_VERSION, 'contract_language': 'required-field-types-v1',

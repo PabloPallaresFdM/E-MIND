@@ -11,7 +11,7 @@
 
 <text x="28" y="66" font-size="52" font-weight="700" style="font-size:52px">E-MIND</text>
 <text x="1370" y="49" font-size="21" style="fill:#536a85;font-size:21px" text-anchor="end">REPRODUCIBLE  ·  TRACEABLE  ·  FOR RESEARCH</text>
-<text x="28" y="103" font-size="25" style="fill:#536a85;font-size:25px">European Intelligent Microgrid Energy Decision Benchmark</text>
+<text x="28" y="103" font-size="25" style="fill:#536a85;font-size:25px">European Microgrid Intelligence for Next-generation Decision-making</text>
 <rect x="28" y="124" width="1344" height="47" rx="12" fill="#eff6fc" stroke="#c2d8ef" />
 <text x="700" y="155" font-size="24" font-weight="700" style="font-size:24px" text-anchor="middle">CURRENT  ·  E-MIND Data  ·  DE_CENT + ES_MED</text>
 <rect x="28" y="190" width="652" height="320" rx="14" fill="url(#de)" stroke="#d59942" />

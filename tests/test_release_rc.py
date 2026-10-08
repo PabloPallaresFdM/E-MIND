@@ -9,7 +9,7 @@ from unittest.mock import patch
 import test_release as development
 COMMIT = development.COMMIT
 from emind.release import build_release, files, read_json, sha256, verify_release
-from emind.release_gates import STATE, CLOSED_ITEMS, validate_citation
+from emind.release_gates import STATE, CLOSED_ITEMS, TITLE, LEGACY_TITLE, validate_citation
 from emind.release_inputs import de_cent_rc_spec, ACCEPTED, HOURLY, FUEL
 
 REPO = Path(__file__).resolve().parents[1]
@@ -109,7 +109,14 @@ class RCGateTests(unittest.TestCase):
         self.spec['metadata']['dataset.json']['release_version'] = '0.0.0-dev'; self.rejected()
 
     def test_citation_version_mismatch(self):
-        self.spec['text_files']['CITATION.cff'] = self.spec['text_files']['CITATION.cff'].replace('0.1.0-rc.1', '0.0.0-dev'); self.rejected()
+        content = self.spec['text_files']['CITATION.cff']
+        authors = self.spec['metadata']['dataset.json']['authors']
+        self.assertEqual(validate_citation(content, '0.1.0-rc.1', authors)['title'], TITLE)
+        legacy = content.replace(TITLE, LEGACY_TITLE)
+        self.assertEqual(validate_citation(legacy, '0.1.0-rc.1', authors)['title'], LEGACY_TITLE)
+        with self.assertRaises(ValueError):
+            validate_citation(content.replace(TITLE, 'Unrelated project'), '0.1.0-rc.1', authors)
+        self.spec['text_files']['CITATION.cff'] = content.replace('0.1.0-rc.1', '0.0.0-dev'); self.rejected()
 
     def test_dev_requires_explicit_opt_in(self):
         with self.assertRaises(ValueError):

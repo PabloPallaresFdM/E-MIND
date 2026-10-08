@@ -1,6 +1,8 @@
-# E-MIND — European Intelligent Microgrid Energy Decision Benchmark
+# E-MIND — European Microgrid Intelligence for Next-generation Decision-making
 
-E-MIND provides reproducible, **task-agnostic data infrastructure for intelligent energy systems research**. Its Data layer combines traceable energy and weather signals into documented regional scenarios. Researchers choose their own forecasting, optimisation and control experiments and supply the physical assumptions those experiments need.
+A reproducible multi-region benchmark for energy management research.
+
+Its **task-agnostic Data layer** combines traceable energy and weather signals into documented regional scenarios. Researchers choose their own forecasting, optimisation and control experiments and supply the physical assumptions those experiments need.
 
 ![E-MIND multi-region architecture](docs/assets/emind_overview.svg)
 
@@ -78,7 +80,7 @@ Define forecasting, representation learning, detection, scheduling, sizing, opti
 
 ## Citation & licensing
 
-Cite the current source/docs checkout as Pablo Pallarés, *E-MIND — European Intelligent Microgrid Energy Decision Benchmark*, repository https://github.com/PabloPallaresFdM/E-MIND, and record its **exact commit** with `git rev-parse HEAD`. Cite upstream providers separately using their attribution metadata. There is no E-MIND DOI.
+Cite the current source/docs checkout as Pablo Pallarés, *E-MIND — European Microgrid Intelligence for Next-generation Decision-making*, repository https://github.com/PabloPallaresFdM/E-MIND, and record its **exact commit** with `git rev-parse HEAD`. Cite upstream providers separately using their attribution metadata. There is no E-MIND DOI.
 
 [CITATION.cff](CITATION.cff) retains `0.1.0-rc.1` for the **historical, unissued DE_CENT local candidate**; this is not the version of the current multi-region source tree. For a separately supplied authorised package, also record its version and release fingerprint.
 

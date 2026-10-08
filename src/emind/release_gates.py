@@ -4,7 +4,9 @@ import json
 import re
 from pathlib import Path
 
-TITLE = 'E-MIND — European Intelligent Microgrid Energy Decision Benchmark'
+TITLE = 'E-MIND — European Microgrid Intelligence for Next-generation Decision-making'
+# Historical package citation identity; retained only for verification compatibility.
+LEGACY_TITLE = 'E-MIND — European Intelligent Microgrid Energy Decision Benchmark'
 REPOSITORY = 'https://github.com/PabloPallaresFdM/E-MIND'
 RC_VERSION = r'\d+\.\d+\.\d+-rc\.[1-9]\d*'
 STATE = {'release_stage': 'release_candidate', 'publication_status': 'NOT_ISSUED',
@@ -37,7 +39,7 @@ def validate_citation(content, version, authors):
         Draft7Validator(schema, format_checker=FormatChecker()).validate(citation)
     except Exception as exc:
         raise ValueError('Invalid/missing CITATION.cff') from exc
-    if (citation.get('title') != TITLE or citation.get('version') != version
+    if (citation.get('title') not in (TITLE, LEGACY_TITLE) or citation.get('version') != version
             or citation.get('repository-code') != REPOSITORY or citation.get('authors') != authors
             or any(k in citation for k in ('doi', 'date-released'))):
         raise ValueError('Citation disagrees with frozen local RC metadata')

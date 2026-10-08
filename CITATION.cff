@@ -6,7 +6,7 @@ message: >-
   source/docs checkout, cite the repository and exact Git commit instead of
   treating this historical version as its release number. For a separately
   authorised package, also record its version and release fingerprint.
-title: "E-MIND — European Intelligent Microgrid Energy Decision Benchmark"
+title: "E-MIND — European Microgrid Intelligence for Next-generation Decision-making"
 authors:
   - given-names: Pablo
     family-names: Pallarés
