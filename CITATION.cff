@@ -1,8 +1,11 @@
 cff-version: 1.2.0
 type: dataset
 message: >-
-  This is a local release candidate / pre-release artifact, NOT_ISSUED and
-  not archived. Identify the repository, version and release fingerprint.
+  This record describes the historical DE_CENT local candidate 0.1.0-rc.1,
+  NOT_ISSUED and not archived; no E-MIND DOI exists. For the current multi-region
+  source/docs checkout, cite the repository and exact Git commit instead of
+  treating this historical version as its release number. For a separately
+  authorised package, also record its version and release fingerprint.
 title: "E-MIND — European Intelligent Microgrid Energy Decision Benchmark"
 authors:
   - given-names: Pablo

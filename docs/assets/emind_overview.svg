@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1080" viewBox="0 0 1400 1080" role="img" aria-labelledby="title desc">
+<title id="title">E-MIND overview: DE_CENT and ES_MED</title>
+<desc id="desc">Two scientifically validated 2019–2025 scenarios compose heterogeneous spatial supports, not measured co-located microgrids. DE_CENT: ERA5 weather, SMARD load, SMARD market, EC Weekly Oil Bulletin fuel. ES_MED: ERA5 weather, REData load, OMIE market, EC Weekly Oil Bulletin fuel. Current E-MIND Data preserves independent scenario identities. A future authorised scientific package contains hourly.parquet with weather, load and market, a native weekly fuel component, metadata, provenance, validation and checksums. The archival scientific release is NOT_ISSUED; REData and OMIE redistribution is PENDING. Public source contains code, docs, tests and safe metadata/configuration, without scientific payloads. E-MIND Env, Reference Tasks and Configurator are future, not implemented. Researchers supply their own plant and controller.</desc>
+<defs>
+<style>text{font-family: sans-serif;fill:#152e50;font-size:23px}.muted{fill:#536a85}.bold{font-weight:700}.future{fill:#f8f7fc;stroke:#a89bc5;stroke-width:2;stroke-dasharray:8 6}.flow{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}</style>
+<linearGradient id="de" x2="0" y2="1"><stop stop-color="#fff6e5"/><stop offset="1" stop-color="#fffaf1"/></linearGradient>
+<linearGradient id="es" x2="0" y2="1"><stop stop-color="#eaf4ff"/><stop offset="1" stop-color="#f6fbff"/></linearGradient>
+<linearGradient id="data" x2="0" y2="1"><stop stop-color="#e6f7ef"/><stop offset="1" stop-color="#f6fcf9"/></linearGradient>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#47725f"/></marker>
+</defs><rect width="1400" height="1080" fill="white"/>
+
+<text x="28" y="66" font-size="52" font-weight="700" style="font-size:52px">E-MIND</text>
+<text x="1370" y="49" font-size="21" style="fill:#536a85;font-size:21px" text-anchor="end">REPRODUCIBLE  ·  TRACEABLE  ·  FOR RESEARCH</text>
+<text x="28" y="103" font-size="25" style="fill:#536a85;font-size:25px">European Intelligent Microgrid Energy Decision Benchmark</text>
+<rect x="28" y="124" width="1344" height="47" rx="12" fill="#eff6fc" stroke="#c2d8ef" />
+<text x="700" y="155" font-size="24" font-weight="700" style="font-size:24px" text-anchor="middle">CURRENT  ·  E-MIND Data  ·  DE_CENT + ES_MED</text>
+<rect x="28" y="190" width="652" height="320" rx="14" fill="url(#de)" stroke="#d59942" />
+<g transform="translate(48 208) scale(0.8)" aria-hidden="true"><path d="M3 18L30 3L57 18L30 33Z M3 31L30 46L57 31 M3 44L30 59L57 44" fill="none" stroke="#d59942" stroke-width="4" stroke-linejoin="round"/></g>
+<text x="116" y="235" font-size="32" font-weight="700" style="font-size:32px">DE_CENT</text>
+<text x="116" y="266" font-size="23" style="fill:#536a85;font-size:23px">Germany · 2019–2025</text>
+<text x="653" y="231" font-size="21" font-weight="700" style="fill:#536a85;font-size:21px" text-anchor="end">VALIDATED</text>
+<rect x="43" y="287" width="150" height="151" rx="10" fill="#ffffff" stroke="#dfd6c7" />
+<g transform="translate(93 298) scale(0.73)" aria-hidden="true"><circle cx="30" cy="24" r="13" fill="#ffb135"/><path d="M30 3V8 M30 40V45 M9 24H14 M46 24H51 M14 8L18 12 M43 9L39 13" stroke="#f4a42e" stroke-width="3"/><path d="M9 49C-2 43 4 28 16 29C21 15 41 19 43 33C61 31 66 53 49 55H15Z" fill="#4da6f5"/></g>
+<text x="118" y="369" font-size="23" font-weight="700" style="font-size:23px" text-anchor="middle">ERA5</text>
+<text x="118" y="399" font-size="22" style="font-size:22px" text-anchor="middle">weather</text>
+<rect x="200" y="287" width="150" height="151" rx="10" fill="#ffffff" stroke="#dfd6c7" />
+<g transform="translate(250 298) scale(0.73)" aria-hidden="true"><path d="M30 4L10 59H50Z M17 38H43 M12 51H48 M22 23H38 M10 25L30 14L50 25 M5 39L30 27L55 39 M15 57L43 38 M45 57L17 38 M30 4V59" fill="none" stroke="#237bd7" stroke-width="3" stroke-linejoin="round"/></g>
+<text x="275" y="369" font-size="23" font-weight="700" style="font-size:23px" text-anchor="middle">SMARD</text>
+<text x="275" y="399" font-size="22" style="font-size:22px" text-anchor="middle">load</text>
+<rect x="357" y="287" width="150" height="151" rx="10" fill="#ffffff" stroke="#dfd6c7" />
+<g transform="translate(407 298) scale(0.73)" aria-hidden="true"><rect x="5" y="36" width="12" height="24" rx="2" fill="#f0a63b"/><rect x="24" y="23" width="12" height="37" rx="2" fill="#f5b34f"/><rect x="43" y="7" width="12" height="53" rx="2" fill="#ec9228"/></g>
+<text x="432" y="369" font-size="23" font-weight="700" style="font-size:23px" text-anchor="middle">SMARD</text>
+<text x="432" y="399" font-size="22" style="font-size:22px" text-anchor="middle">market</text>
+<rect x="514" y="287" width="150" height="151" rx="10" fill="#ffffff" stroke="#dfd6c7" />
+<g transform="translate(564 298) scale(0.73)" aria-hidden="true"><path d="M30 2C24 14 7 32 7 43A23 23 0 0053 43C53 32 36 14 30 2Z" fill="#172c49"/><path d="M17 39Q12 52 26 55" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/></g>
+<text x="589" y="367" font-size="21" font-weight="700" style="font-size:21px" text-anchor="middle">EC Weekly</text>
+<text x="589" y="391" font-size="21" font-weight="700" style="font-size:21px" text-anchor="middle">Oil Bulletin</text>
+<text x="589" y="420" font-size="22" style="font-size:22px" text-anchor="middle">fuel</text>
+<text x="354" y="479" font-size="23" style="font-size:23px" text-anchor="middle">Acquisition → harmonisation → scenario</text>
+<rect x="720" y="190" width="652" height="320" rx="14" fill="url(#es)" stroke="#639cda" />
+<g transform="translate(740 208) scale(0.8)" aria-hidden="true"><path d="M3 18L30 3L57 18L30 33Z M3 31L30 46L57 31 M3 44L30 59L57 44" fill="none" stroke="#639cda" stroke-width="4" stroke-linejoin="round"/></g>
+<text x="808" y="235" font-size="32" font-weight="700" style="font-size:32px">ES_MED</text>
+<text x="808" y="266" font-size="23" style="fill:#536a85;font-size:23px">Spain · 2019–2025</text>
+<text x="1345" y="231" font-size="21" font-weight="700" style="fill:#536a85;font-size:21px" text-anchor="end">VALIDATED</text>
+<rect x="735" y="287" width="150" height="151" rx="10" fill="#ffffff" stroke="#cadcf0" />
+<g transform="translate(785 298) scale(0.73)" aria-hidden="true"><circle cx="30" cy="24" r="13" fill="#ffb135"/><path d="M30 3V8 M30 40V45 M9 24H14 M46 24H51 M14 8L18 12 M43 9L39 13" stroke="#f4a42e" stroke-width="3"/><path d="M9 49C-2 43 4 28 16 29C21 15 41 19 43 33C61 31 66 53 49 55H15Z" fill="#4da6f5"/></g>
+<text x="810" y="369" font-size="23" font-weight="700" style="font-size:23px" text-anchor="middle">ERA5</text>
+<text x="810" y="399" font-size="22" style="font-size:22px" text-anchor="middle">weather</text>
+<rect x="892" y="287" width="150" height="151" rx="10" fill="#ffffff" stroke="#cadcf0" />
+<g transform="translate(942 298) scale(0.73)" aria-hidden="true"><path d="M30 4L10 59H50Z M17 38H43 M12 51H48 M22 23H38 M10 25L30 14L50 25 M5 39L30 27L55 39 M15 57L43 38 M45 57L17 38 M30 4V59" fill="none" stroke="#237bd7" stroke-width="3" stroke-linejoin="round"/></g>
+<text x="967" y="369" font-size="23" font-weight="700" style="font-size:23px" text-anchor="middle">REData</text>
+<text x="967" y="399" font-size="22" style="font-size:22px" text-anchor="middle">load</text>
+<rect x="1049" y="287" width="150" height="151" rx="10" fill="#ffffff" stroke="#cadcf0" />
+<g transform="translate(1099 298) scale(0.73)" aria-hidden="true"><rect x="5" y="36" width="12" height="24" rx="2" fill="#f0a63b"/><rect x="24" y="23" width="12" height="37" rx="2" fill="#f5b34f"/><rect x="43" y="7" width="12" height="53" rx="2" fill="#ec9228"/></g>
+<text x="1124" y="369" font-size="23" font-weight="700" style="font-size:23px" text-anchor="middle">OMIE</text>
+<text x="1124" y="399" font-size="22" style="font-size:22px" text-anchor="middle">market</text>
+<rect x="1206" y="287" width="150" height="151" rx="10" fill="#ffffff" stroke="#cadcf0" />
+<g transform="translate(1256 298) scale(0.73)" aria-hidden="true"><path d="M30 2C24 14 7 32 7 43A23 23 0 0053 43C53 32 36 14 30 2Z" fill="#172c49"/><path d="M17 39Q12 52 26 55" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/></g>
+<text x="1281" y="367" font-size="21" font-weight="700" style="font-size:21px" text-anchor="middle">EC Weekly</text>
+<text x="1281" y="391" font-size="21" font-weight="700" style="font-size:21px" text-anchor="middle">Oil Bulletin</text>
+<text x="1281" y="420" font-size="22" style="font-size:22px" text-anchor="middle">fuel</text>
+<text x="1046" y="479" font-size="23" style="font-size:23px" text-anchor="middle">Acquisition → harmonisation → scenario</text>
+<path d="M354 510V534H1046V510 M700 534V558" class="flow" stroke="#47725f" marker-end="url(#arrow)"/>
+<rect x="28" y="562" width="1344" height="270" rx="14" fill="url(#data)" stroke="#69aa90" />
+<g transform="translate(48 580) scale(0.83)" aria-hidden="true"><path d="M5 15V48C5 65 55 65 55 48V15" fill="#1c9770"/><ellipse cx="30" cy="15" rx="25" ry="12" fill="#1c9770" stroke="white" stroke-width="3"/><path d="M5 31C5 48 55 48 55 31 M5 46C5 63 55 63 55 46" fill="none" stroke="white" stroke-width="3"/></g>
+<text x="118" y="611" font-size="32" font-weight="700" style="font-size:32px">E-MIND Data</text>
+<text x="1347" y="606" font-size="22" style="fill:#42745f;font-size:22px" text-anchor="end">AUTHORISED PACKAGE FORMAT · per scenario</text>
+<rect x="48" y="632" width="586" height="170" rx="10" fill="white" stroke="#c0dfd0" />
+<rect x="650" y="632" width="280" height="170" rx="10" fill="white" stroke="#c0dfd0" />
+<rect x="946" y="632" width="406" height="170" rx="10" fill="white" stroke="#c0dfd0" />
+<g transform="translate(66 650) scale(0.6)" aria-hidden="true"><rect x="3" y="8" width="54" height="46" rx="4" fill="none" stroke="#258e6b" stroke-width="3"/><path d="M3 22H57 M3 37H57 M21 8V54 M39 8V54" stroke="#258e6b" stroke-width="3"/></g>
+<text x="119" y="678" font-size="26" font-weight="700" style="font-size:26px">hourly.parquet</text>
+<text x="610" y="677" font-size="22" style="fill:#536a85;font-size:22px" text-anchor="end">1 h UTC</text>
+<rect x="66" y="697" width="166" height="42" rx="7" fill="#eff8f4" stroke="#d5e9df" />
+<text x="149" y="725" font-size="23" style="font-size:23px" text-anchor="middle">weather</text>
+<rect x="246" y="697" width="166" height="42" rx="7" fill="#eff8f4" stroke="#d5e9df" />
+<text x="329" y="725" font-size="23" style="font-size:23px" text-anchor="middle">load</text>
+<rect x="426" y="697" width="166" height="42" rx="7" fill="#eff8f4" stroke="#d5e9df" />
+<text x="509" y="725" font-size="23" style="font-size:23px" text-anchor="middle">market</text>
+<text x="66" y="777" font-size="22" style="fill:#536a85;font-size:22px">61,368 rows · interval-start · 2019–2025</text>
+<g transform="translate(669 649) scale(0.58)" aria-hidden="true"><rect x="6" y="12" width="48" height="44" rx="5" fill="none" stroke="#c99033" stroke-width="3"/><path d="M6 25H54 M18 5V19 M42 5V19" stroke="#c99033" stroke-width="4"/><path d="M17 35H24 M34 35H41 M17 46H24 M34 46H41" stroke="#c99033" stroke-width="4"/></g>
+<text x="719" y="678" font-size="26" font-weight="700" style="font-size:26px">fuel</text>
+<text x="669" y="724" font-size="24" font-weight="700" style="font-size:24px">Native weekly</text>
+<text x="669" y="756" font-size="22" style="font-size:22px">component (CSV)</text>
+<text x="669" y="783" font-size="21" style="fill:#536a85;font-size:21px">No hourly expansion</text>
+<g transform="translate(962 650) scale(0.6)" aria-hidden="true"><path d="M12 3H38L50 15V57H12Z M38 3V15H50 M21 27H41 M21 37H41 M21 47H35" fill="none" stroke="#6576a0" stroke-width="3" stroke-linejoin="round"/></g>
+<text x="1011" y="678" font-size="23" font-weight="700" style="font-size:23px">metadata / provenance</text>
+<text x="966" y="726" font-size="23" style="font-size:23px">validation / checksums</text>
+<text x="966" y="773" font-size="21" style="fill:#536a85;font-size:21px">Independent scenario identities</text>
+<path d="M700 832V853" class="flow" stroke="#47725f" marker-end="url(#arrow)"/>
+<g transform="translate(40 858) scale(0.56)" aria-hidden="true"><path d="M6 48L19 30L32 38L52 12 M39 12H52V25" fill="none" stroke="#287ce6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="89" y="884" font-size="23" font-weight="700" style="font-size:23px">USER-DEFINED RESEARCH</text>
+<text x="455" y="884" font-size="22" style="font-size:22px">Forecasting · optimisation · EMS/control · user-supplied plant &amp; controller</text>
+<text x="28" y="930" font-size="22" font-weight="700" style="fill:#7d7397;font-size:22px">FUTURE</text>
+<rect x="160" y="903" width="360" height="53" rx="10" fill="#f8f7fc" stroke="#a89bc5" stroke-dasharray="8 6"/>
+<g transform="translate(174 911) scale(0.58)" aria-hidden="true"><path d="M7 52C-2 20 26 4 55 5C54 37 39 58 14 46" fill="#8c80ad"/><path d="M6 60Q20 32 43 17" fill="none" stroke="white" stroke-width="3"/></g>
+<text x="223" y="937" font-size="23" font-weight="700" style="fill:#756c90;font-size:23px">E-MIND Env</text>
+<rect x="538" y="903" width="408" height="53" rx="10" fill="#f8f7fc" stroke="#a89bc5" stroke-dasharray="8 6"/>
+<g transform="translate(552 911) scale(0.58)" aria-hidden="true"><path d="M6 48L19 30L32 38L52 12 M39 12H52V25" fill="none" stroke="#8c80ad" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="601" y="937" font-size="23" font-weight="700" style="fill:#756c90;font-size:23px">Reference Tasks</text>
+<rect x="964" y="903" width="408" height="53" rx="10" fill="#f8f7fc" stroke="#a89bc5" stroke-dasharray="8 6"/>
+<g transform="translate(978 911) scale(0.58)" aria-hidden="true"><path d="M3 12H57 M3 30H57 M3 48H57" stroke="#8c80ad" stroke-width="4"/><circle cx="21" cy="12" r="6" fill="#8c80ad"/><circle cx="42" cy="30" r="6" fill="#8c80ad"/><circle cx="17" cy="48" r="6" fill="#8c80ad"/></g>
+<text x="1027" y="937" font-size="23" font-weight="700" style="fill:#756c90;font-size:23px">Configurator</text>
+<text x="700" y="984" font-size="23" style="fill:#536a85;font-size:23px" text-anchor="middle">Heterogeneous spatial supports · not a measured co-located microgrid</text>
+<line x1="28" y1="1001" x2="1372" y2="1001" stroke="#d4dfe9"/>
+<text x="28" y="1031" font-size="22" font-weight="700" style="fill:#765a43;font-size:22px">Archival scientific release: NOT_ISSUED</text>
+<text x="1372" y="1031" font-size="22" font-weight="700" style="fill:#765a43;font-size:22px" text-anchor="end">REData / OMIE redistribution: PENDING</text>
+<text x="700" y="1064" font-size="22" style="fill:#536a85;font-size:22px" text-anchor="middle">Public checkout: code / docs / tests / safe metadata &amp; configuration · no scientific payloads</text>
+</svg>

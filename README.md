@@ -1,27 +1,29 @@
 # E-MIND — European Intelligent Microgrid Energy Decision Benchmark
 
-E-MIND is reproducible, **task-agnostic data infrastructure for intelligent energy systems research**. E-MIND Data combines traceable open energy and weather signals into documented scenarios. Researchers define their own downstream tasks and physical assumptions.
+E-MIND provides reproducible, **task-agnostic data infrastructure for intelligent energy systems research**. Its Data layer combines traceable energy and weather signals into documented regional scenarios. Researchers choose their own forecasting, optimisation and control experiments and supply the physical assumptions those experiments need.
 
-![E-MIND overview](docs/assets/emind_overview.png)
+![E-MIND multi-region architecture](docs/assets/emind_overview.svg)
 
-The existing overview illustrates the architecture using **DE_CENT and SMARD**. ES_MED follows the same data/scenario structure with its own sources; the figure does not enumerate current regional coverage or grant data redistribution rights.
+DE_CENT and ES_MED retain their own providers, spatial supports and provenance. Signal icons and the compact Data panel show the authorised package format; dashed boxes mark future tools. Scientific payloads are not included in the public checkout or publicly distributed yet.
 
 ## Current status
 
-**DE_CENT and ES_MED (2019–2025) are technically validated, scientifically closed scenarios.** E-MIND is now **multi-region European energy data infrastructure**, but the public archival data release has not yet been issued. DK_WEST, GB and FI_SOUTH remain planned / in development. E-MIND Env, Reference Tasks and the Configurator are future layers, not released tools or tasks. Software/dataset infrastructure remains **pre-release / under development**; the local candidate is NOT_ISSUED, not archived, with no E-MIND DOI.
+**DE_CENT and ES_MED (2019–2025) are technically validated, scientifically closed scenarios.** The public repository contains source code, tests, documentation and scenario/source metadata for this multi-region infrastructure. The software remains under development.
 
-> **Each scenario composes heterogeneous open signals with independent spatial support. Neither is a measured co-located physical microgrid.**
+The scientific archival release is **NOT_ISSUED**: no public scientific payload, archived dataset or E-MIND DOI is available. REData/OMIE redistribution remains **PENDING**. E-MIND Env, Reference Tasks and Configurator are future layers; no canonical plant, reward or controller is included.
+
+> Each scenario combines heterogeneous signals with independent spatial support. Neither represents a measured co-located physical microgrid.
 
 ## Quick start
 
-Use **Python 3.12** (validated baseline: 3.12.13). The repository is public; clone anonymously over HTTPS:
+Use **Git** and **Python 3.12**. An exact Python patch version is not pinned; previously certified baseline: 3.12.13. The following commands use a Linux / macOS shell. Clone the public repository anonymously:
 
 ```bash
 git clone https://github.com/PabloPallaresFdM/E-MIND.git
 cd E-MIND
 ```
 
-Choose one environment option.
+Choose **one** environment. Conda is optional.
 
 **Conda / Miniforge:**
 
@@ -30,36 +32,41 @@ conda create -n emind python=3.12 -y
 conda activate emind
 ```
 
-**venv** (Linux / macOS):
+**venv:**
 
 ```bash
 python3.12 -m venv .venv
 source .venv/bin/activate
 ```
 
-Install and verify:
+Install and verify from the checkout:
 
 ```bash
+python --version
 python -m pip install -r scripts/release/requirements.txt
 python -m unittest discover -s tests -v
 ```
 
-Public software-only baseline: **284 total, 269 passed, 15 skipped, 0 failures, 0 errors**. Eleven skips require accepted scientific integration inputs; four require optional frozen provenance fixtures. These expected skips do not indicate a failed installation. E-MIND runs from the checkout. See [Getting started](docs/getting_started.md) for prerequisites, clean-fixture testing and troubleshooting.
+Success is **284 tests, `OK (skipped=15)`**: 269 passed, 15 expected skips, zero failures/errors. The skipped tests need separately supplied scientific or provenance fixtures; they are not installation errors. No provider credentials or scientific downloads are needed. E-MIND runs from this checkout; Pandas is optional. See [Getting started](docs/getting_started.md) for prerequisites, dependency checks and troubleshooting.
 
-## Get the data
+## Scenarios
 
-Scientific data are maintained separately from Git. **The public archival data release has not been issued**, and there is no public download or matching integration-fixture distribution yet. Installing the software does not download data. For an authorised standalone package, see [Dataset overview](docs/dataset_overview.md) and the [DE_CENT](docs/scenarios/DE_CENT.md) / [ES_MED](docs/scenarios/ES_MED.md) profiles for reading, integrity checks and interpretation. REData/OMIE redistribution remains **PENDING**; omitting provider RAW does not clear canonical or derived payload rights.
-
-## What is available
-
-| Scenario | Region | Period | Signals | Scientific status |
+| Scenario | Region | Period | Signals | Status |
 |---|---|---|---|---|
-| DE_CENT | Germany | 2019–2025 | Weather / load / market / fuel | Closed; public archival distribution pending |
-| ES_MED | Spain | 2019–2025 | Weather / load / market / fuel | Closed technically; public archival distribution pending |
+| [DE_CENT](docs/scenarios/DE_CENT.md) | Germany | 2019–2025 | Weather / load / market / native weekly fuel | Technically validated; archival distribution pending |
+| [ES_MED](docs/scenarios/ES_MED.md) | Spain | 2019–2025 | Weather / load / market / native weekly fuel | Technically validated; archival distribution pending |
+
+## Data access
+
+**Cloning does not download scientific data.** There is currently no public data download or integration-fixture distribution. Scientific validation and software access do not establish redistribution permission; in particular, REData/OMIE canonical and derived payload rights remain PENDING even when provider RAW is omitted.
+
+You can inspect the [scenario registry](metadata/scenario_registry.json) and both scenario pages now. If you receive a separately authorised package, [Dataset overview](docs/dataset_overview.md#read-and-inspect-the-hourly-core) explains how to read it with PyArrow and [verify its checksums and identity](docs/dataset_overview.md#verify-checksums-and-package-identity).
+
+Within each `scenarios/DE_CENT/` or `scenarios/ES_MED/` directory, `hourly.parquet` holds weather, load and market: **61,368 rows, 1 h UTC interval starts, 2019–2025**. Fuel remains a **native weekly CSV** under `components/fuel/`, without hourly expansion. `scenario.json`, `metadata.json`, `lineage.json`, `validation.json` and `checksums.sha256` describe and verify the scenario. See the [release schema](docs/release_schema.md#layout) for exact paths and package-level files; this format does not imply current public data availability.
 
 ## Research uses
 
-The data/scenario layer supports user-defined forecasting, representation learning, detection, scheduling, sizing, optimisation and EMS/control experiments. Control algorithms, a canonical plant, actions and reward are not supplied. See [Research uses](docs/research_uses.md) for responsibilities and the distinction between Data, future Env / Reference Tasks and user-defined tasks.
+Define forecasting, representation learning, detection, scheduling, sizing, optimisation or EMS/control experiments using authorised inputs. Supply your own plant, control algorithm, objective and information protocol. See [Research uses](docs/research_uses.md) for responsibilities and the distinction between Data, future Env / Reference Tasks and user-defined tasks.
 
 ## Documentation
 
@@ -71,9 +78,11 @@ The data/scenario layer supports user-defined forecasting, representation learni
 
 ## Citation & licensing
 
-Use [CITATION.cff](CITATION.cff): Pablo Pallarés, *E-MIND — European Intelligent Microgrid Energy Decision Benchmark*, historical DE_CENT local candidate `0.1.0-rc.1`, repository https://github.com/PabloPallaresFdM/E-MIND. Record the exact checkout commit (`git rev-parse HEAD`), or a supplied package's version and release fingerprint. **DOI pending:** this is a pre-release citation, not an archived publication. The retained CFF version identifies that historical unissued DE_CENT candidate; it is not a new multi-region release version. Cite this source/docs projection by its exact checkout commit. Cite upstream providers separately using attribution metadata.
+Cite the current source/docs checkout as Pablo Pallarés, *E-MIND — European Intelligent Microgrid Energy Decision Benchmark*, repository https://github.com/PabloPallaresFdM/E-MIND, and record its **exact commit** with `git rev-parse HEAD`. Cite upstream providers separately using their attribution metadata. There is no E-MIND DOI.
 
-Project code: [MIT](LICENSE). Project-authored metadata/documentation: [CC BY 4.0](LICENSE-METADATA). Upstream sources retain their [own licences and attribution requirements](metadata/licenses.json); project grants do not relicense provider data.
+[CITATION.cff](CITATION.cff) retains `0.1.0-rc.1` for the **historical, unissued DE_CENT local candidate**; this is not the version of the current multi-region source tree. For a separately supplied authorised package, also record its version and release fingerprint.
+
+Project code: [MIT](LICENSE). Project-authored metadata/documentation: [CC BY 4.0](LICENSE-METADATA). Upstream sources retain their [own licences and attribution requirements](metadata/licenses.json); [Spanish source terms](metadata/spanish_sources.json) remain pending. Project grants do not relicense provider data.
 
 ## Roadmap
 

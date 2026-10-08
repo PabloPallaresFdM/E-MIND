@@ -1,10 +1,10 @@
 # Getting started
 
-This guide verifies the software without scientific downloads or provider credentials. Python **3.12** is the supported baseline (validated with 3.12.13 and PyArrow 25.0.1). Run from the repository root. [README](../README.md) explains scope and publication status.
+This guide verifies the software without scientific downloads or provider credentials. Python **3.12** is the supported baseline; an exact patch version is not pinned (previously certified: 3.12.13 and PyArrow 25.0.1). Run from the repository root. [README](../README.md) explains scope and publication status.
 
 ## Prerequisites
 
-You need **Git** and **Python 3.12**, or Conda / Miniforge to create a Python 3.12 environment. A virtual environment keeps this project's Python packages separate from other projects and the system Python. The commands below use a Linux / macOS shell; activate the chosen environment in each new shell.
+You need **Git**, internet access for cloning/installing dependencies, and **Python 3.12**, or an existing Conda / Miniforge installation to create a Python 3.12 environment. Conda is optional; use venv if Python 3.12 is already installed. A virtual environment keeps this project's packages separate from other projects and the system Python. The commands below use a Linux / macOS shell; activate the chosen environment in each new shell.
 
 ## Clone and select an environment
 
@@ -15,6 +15,14 @@ git clone https://github.com/PabloPallaresFdM/E-MIND.git
 cd E-MIND
 ```
 
+Check that the clone is the public repository:
+
+```bash
+git remote get-url origin
+```
+
+Expected: `https://github.com/PabloPallaresFdM/E-MIND.git`.
+
 Choose **one** option.
 
 Conda / Miniforge:
@@ -23,6 +31,8 @@ Conda / Miniforge:
 conda create -n emind python=3.12 -y
 conda activate emind
 ```
+
+If `emind` already belongs to another project, choose an unused environment name in both commands. If `conda activate` reports an uninitialised shell, follow the shell-setup instructions supplied with your Conda installation, then reopen the shell.
 
 venv (Linux / macOS):
 
@@ -41,15 +51,17 @@ Verify:
 
 ```bash
 python --version
-python -c "import pyarrow; print(pyarrow.__version__)"
+python -c "from importlib.metadata import version; print({name: version(name) for name in ('pyarrow', 'PyYAML', 'jsonschema')})"
 python -m unittest discover -s tests -v
 ```
 
-Requirements pin PyArrow, PyYAML and jsonschema; transitive dependencies are not fully locked. The software runs from this checkout, without a wheel installation. Pandas is optional for analysis and is not required by the public tests.
+Expected dependency versions: **PyArrow 25.0.1, PyYAML 6.0.3, jsonschema 4.26.0**. Requirements pin these three packages; transitive dependencies are not fully locked. The software runs directly from this checkout; no wheel or package-index installation step is provided. Pandas is optional for the [analysis examples](dataset_overview.md#read-and-inspect-the-hourly-core) and is not required by the public tests.
 
 ## Understand the result
 
 The validated public baseline is **284 tests: 269 passed, 15 skipped, 0 failures, 0 errors**. Eleven tests require **accepted scientific integration inputs**: accepted artifacts and matching component/acquisition provenance. Four tests require **optional frozen provenance fixtures**: two frozen RAW GRIB inputs and two original acquisition-script fixtures. Expected skips do not indicate installation failure. Synthetic scenario tests run with PyArrow installed.
+
+The test command proves installation succeeded when its final lines report `Ran 284 tests` and `OK (skipped=15)`. A `FAILED` result or additional skips needs investigation. Cloning and installing requirements do not download scientific data. No credentials are needed for this software-only verification.
 
 For a clean software-only run in an environment previously used for scientific validation, clear fixture selectors in the current shell before repeating the test command:
 
