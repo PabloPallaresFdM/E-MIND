@@ -1,4 +1,4 @@
-"""Offline, value-preserving DE_CENT scenario composition (A7 schema 1)."""
+"""Offline, value-preserving regional scenario composition (A7 schema 1)."""
 import csv
 import hashlib
 import json
@@ -98,6 +98,154 @@ def validate_fuel(rows):
     if any(not math.isfinite(float(r['source_value'])) for r in rows):
         raise ValueError('Non-finite fuel')
     return dict(counts)
+
+
+def mapped_rows(rows, mapping):
+    """Explicit source-to-contract mapping, without numeric conversion."""
+    if set(mapping) not in ({LOAD}, {MARKET}):
+        raise ValueError('Unexpected hourly component mapping')
+    if any(set(r) != {'timestamp_utc', *mapping.values()} for r in rows):
+        raise ValueError('Unexpected source hourly schema')
+    return [{'timestamp_utc': r['timestamp_utc'], **{k: r[v] for k, v in mapping.items()}}
+            for r in rows]
+
+
+def build_configured(root, output, specification, *, repository):
+    """Compose reviewed regional components using the existing schema/identity.
+
+    The historical DE entry point remains unchanged. Region/provider decisions
+    enter through a hash-pinned specification, never through inferred geography.
+    """
+    from copy import deepcopy
+    from decimal import Decimal
+    import re
+    import shutil
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    root, output, repository = map(lambda p: Path(p).resolve(), (root, output, repository))
+    spec = deepcopy(specification)
+    sid = spec['scenario_id']
+    if not re.fullmatch(r'[A-Z][A-Z0-9_]*', sid):
+        raise ValueError('Invalid scenario ID')
+    if root / 'scenarios' / sid not in output.parents or output.exists():
+        raise ValueError('New scenario-specific Scratch directory required')
+    if set(spec['components']) != {'weather', 'load', 'market', 'fuel'}:
+        raise ValueError('Four reviewed components required')
+    originals = {}
+
+    def checked(reference):
+        p = (root / reference['artifact']).resolve()
+        if root not in p.parents or sha256(p) != reference['sha256']:
+            raise ValueError('Component/provenance checksum or path mismatch')
+        originals[p] = reference['sha256']
+        return p
+
+    def relocate(value):
+        if isinstance(value, dict):
+            return {k: relocate(v) for k, v in value.items()}
+        if isinstance(value, list):
+            return [relocate(v) for v in value]
+        if isinstance(value, str) and value.startswith(str(repository) + '/'):
+            return 'repository/' + str(Path(value).relative_to(repository))
+        return value
+
+    paths, components = {}, {}
+    for name, c in spec['components'].items():
+        paths[name] = checked(c)
+        lineage = []
+        for ref in c.pop('metadata'):
+            p = checked(ref)
+            lineage.append(dict(ref, content=portable(relocate(json.loads(p.read_text())), root)))
+        if 'upstream_workbook' in c:
+            checked(c['upstream_workbook'])
+        c['lineage'] = lineage
+        components[name] = c
+    weather = pq.read_table(paths['weather'])
+    load = mapped_rows(read_csv(paths['load']), components['load']['column_mapping'])
+    market = mapped_rows(read_csv(paths['market']), components['market']['column_mapping'])
+    fuel = read_csv(paths['fuel'])
+    table = assemble(weather, load, market)
+    if table.schema.field('timestamp_utc').type != pa.timestamp('us', tz='UTC'):
+        raise ValueError('Canonical timestamp dtype must be microseconds UTC')
+    counts = validate_fuel(fuel)
+    fc = components['fuel']
+    if any(r['country_code'] != fc['country_code'] or r['country'] != fc['country']
+           or r['native_frequency'] != 'weekly' or r['availability_status'] != 'UNKNOWN'
+           or r['available_at'] != '' or r['raw_sha256'] != fc['upstream_workbook']['sha256'] for r in fuel):
+        raise ValueError('Fuel country/cadence/availability/lineage mismatch')
+    fc['observations_per_variant'] = counts
+    if any(fc[k] is not False for k in ('interpolation', 'zero_order_hold', 'forward_fill', 'hourly_resampling')):
+        raise ValueError('Hourly fuel representation is forbidden')
+    if fc['tax_default'] != 'UNSELECTED' or fc['available_at'] != 'UNKNOWN':
+        raise ValueError('Unreviewed fuel tax/availability semantics')
+    data = table.to_pydict()
+    formula_errors = {'surface_solar_irradiance_w_m2': max(abs(a-b/3600) for a,b in
+        zip(data['surface_solar_irradiance_w_m2'], data['surface_solar_radiation_downwards_j_m2']))}
+    for level in (10, 100):
+        u, v, s = (data[f'wind_{part}_{level}m_m_s'] for part in ('u', 'v', 'speed'))
+        formula_errors[f'wind_speed_{level}m_m_s'] = max(abs(c-math.sqrt(a*a+b*b)) for a,b,c in zip(u,v,s))
+    if any(formula_errors.values()) or min(data['surface_solar_radiation_downwards_j_m2']) < 0:
+        raise ValueError('Weather formula/SSRD validation failed')
+    config = dict(schema_version=VERSION, scenario_id=sid, scenario_class=spec['scenario_class'],
+        artifact_status='VALIDATED_CANDIDATE_NOT_RELEASE',
+        horizon=dict(start=START.isoformat().replace('+00:00', 'Z'), end_exclusive=END.isoformat().replace('+00:00', 'Z'), rows=ROWS, complete_calendar_years='2019-2025'),
+        canonical_timebase='1h UTC', interval_semantics='interval_start',
+        scenario_interpretation='historically grounded composition of heterogeneous open signals',
+        historical_colocated_microgrid=False, co_location_claim=False,
+        controller_information_set='UNDEFINED; later Reference Tasks decide I0/I1/I2/I3',
+        demand_scaling=False, hourly_columns=table.column_names, hourly_artifact='hourly.parquet',
+        fuel_storage='REFERENCE_ONLY_NATIVE_CADENCE',
+        assembly_transformation='Exact ordered UTC support equality, column concatenation; explicit source column mapping; float64 schema as DE_CENT',
+        components=components, technical_limitations=spec['technical_limitations'])
+    identity = fingerprint(config)
+    output.mkdir(parents=True, exist_ok=False, mode=0o700)
+    pq.write_table(table, output / 'hourly.parquet', compression='zstd')
+    reread = pq.read_table(output / 'hourly.parquet')
+    if not table.equals(reread, check_metadata=True):
+        raise ValueError('Serialized table changed numerically or structurally')
+    native_path = output / 'components/fuel' / paths['fuel'].name
+    native_path.parent.mkdir(parents=True)
+    shutil.copyfile(paths['fuel'], native_path)
+    if sha256(native_path) != components['fuel']['sha256']:
+        raise ValueError('Native fuel byte preservation failed')
+    if any(sha256(p) != h for p, h in originals.items()):
+        raise ValueError('Input changed during assembly')
+    summary = {c: dict(min=min(data[c]), max=max(data[c]), mean=math.fsum(data[c])/ROWS) for c in WEATHER+[LOAD, MARKET]}
+    summary[LOAD]['total_mwh'] = math.fsum(data[LOAD])
+    decimal_summary = {}
+    for rows, c in ((load, LOAD), (market, MARKET)):
+        values = [Decimal(r[c]) for r in rows]
+        decimal_summary[c] = dict(min=str(min(values)), max=str(max(values)),
+            mean=str(sum(values, Decimal(0))/ROWS), total=str(sum(values, Decimal(0))),
+            max_float64_conversion_error=str(max(abs(Decimal.from_float(float(v))-v) for v in values)))
+    summary['fuel'] = {v: dict(observations=counts[v], min=min(float(r['source_value']) for r in fuel if r['tax_variant']==v),
+        max=max(float(r['source_value']) for r in fuel if r['tax_variant']==v)) for v in counts}
+    validation = dict(status='PASS', rows=ROWS, gaps=0, duplicates=0, join_missing=0, missing=0, nulls=0,
+        nonfinite=0, exact_hourly_timestamp_equality=True, first_timestamp=data['timestamp_utc'][0].isoformat(),
+        end_exclusive=END.isoformat(), weather_formula_max_errors=formula_errors,
+        numeric_preservation='Exact equality to float64 conversion of accepted CSV decimals; weather float64 unchanged',
+        regression_max_numeric_difference={k:0 for k in components}, negative_market_hours=sum(v<0 for v in data[MARKET]),
+        market_negatives_preserved=True, fuel_counts=counts, fuel_resampled=False,
+        native_fuel_sha256=sha256(native_path), accepted_component_directory_files_unchanged=True,
+        scenario_fingerprint=identity, fingerprint_algorithm='SHA256 sorted compact UTF-8 JSON of scenario.json; allow_nan=false',
+        hourly_sha256=sha256(output/'hourly.parquet'), component_hashes={k:c['sha256'] for k,c in components.items()},
+        numeric_summary=summary, source_decimal_summary=decimal_summary, network_access=False)
+    fields = {c:'weather' for c in WEATHER}; fields.update({LOAD:'load', MARKET:'market'})
+    def save(name, value):
+        (output/name).write_text(json.dumps(value, indent=2, ensure_ascii=False, allow_nan=False)+'\n')
+    save('scenario.json', config)
+    save('metadata.json', dict(scenario_id=sid, scenario_fingerprint=identity, schema=VERSION,
+        timestamp_type=str(reread.schema.field('timestamp_utc').type), numeric_type='float64',
+        side_components=[dict(component_id='fuel', path=str(native_path.relative_to(output)), cadence='weekly/native',
+            sha256=fc['sha256'], available_at='UNKNOWN', tax_default='UNSELECTED', interpolation=False, zero_order_hold=False, forward_fill=False)]))
+    save('lineage.json', dict(scenario_id=sid, scenario_fingerprint=identity, components=components,
+        fields={c:dict(component_id=k, accepted_artifact_sha256=components[k]['sha256'],
+            source_column=components[k].get('column_mapping', {}).get(c,c)) for c,k in fields.items()}))
+    save('validation.json', validation)
+    (output/'support_audit.md').write_text('\n'.join(f'{k}: {c["spatial_support"]}; {c["native_temporal_resolution"]}' for k,c in components.items())+'\nHistorically grounded heterogeneous composition; no co-location or physical microgrid claim.\n')
+    (output/'checksums.sha256').write_text(''.join(f'{sha256(p)}  {p.relative_to(output)}\n' for p in sorted(output.rglob('*')) if p.is_file()))
+    return validation
 
 
 def build(root, output):

@@ -1,13 +1,11 @@
 {
   "schema_version": "0.1",
-  "decision_phase": "02B-2",
-  "authority": "Coordinator-approved user instruction; no independent scientific selection",
   "scenario_classification": {
     "DE_CENT": "CORE_FULL_MARKET",
     "DK_WEST": "CORE_FULL_MARKET",
     "GB": "CORE_FULL_MARKET",
     "FI_SOUTH": "CORE_CLIMATE_LOAD",
-    "ES_MED": "EXTENSION"
+    "ES_MED": "CORE_FULL_MARKET"
   },
   "market_policy": {
     "DE_CENT": {
@@ -37,9 +35,11 @@
       "protocol": null
     },
     "ES_MED": {
-      "local_load_market_status": "USER_SUPPLIED_ONLY",
-      "protocol": "M3_USER_SUPPLIED_LOCAL",
-      "redistributed_in_core": false
+      "local_load_market_status": "TECHNICAL_PASS_REDISTRIBUTION_PENDING",
+      "protocol": "M1_LOCAL_OPEN",
+      "redistributed_in_core": false,
+      "redistribution": "PENDING",
+      "raw_policy": "R2_PROVISIONAL_OMIT_UNLESS_CLEARED"
     }
   },
   "gb_load": {
@@ -58,6 +58,20 @@
     "selected_emission_factors": null,
     "implemented": false
   },
-  "coordinates_selected": false,
-  "plant_parameters_selected": false
+  "coordinates_selected": {
+    "DE_CENT": {
+      "latitude": 51.0,
+      "longitude": 10.25
+    },
+    "ES_MED": {
+      "latitude": 39.5,
+      "longitude": -0.75
+    }
+  },
+  "plant_parameters_selected": false,
+  "scientifically_closed_scenarios": [
+    "DE_CENT",
+    "ES_MED"
+  ],
+  "public_archival_status": "NOT_ISSUED"
 }

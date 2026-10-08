@@ -1,8 +1,8 @@
 # Dataset overview
 
-E-MIND Data is a reproducible, task-agnostic data layer. A scenario declares how provider signals are composed; it is not a plant or a control task. **DE_CENT (2019–2025) is the only scientifically closed scenario.** Public archival data distribution and DOI issuance are pending; the Git checkout does not contain the scientific payload.
+E-MIND Data is a reproducible, task-agnostic data layer. A scenario declares how provider signals are composed; it is not a plant or a control task. **DE_CENT and ES_MED (2019–2025) are technically validated scientific scenarios.** E-MIND is multi-region European energy data infrastructure. Public archival data distribution and DOI issuance are pending; the Git checkout does not contain the scientific payload.
 
-> **DE_CENT is a historically grounded composition of heterogeneous open signals. It is not a measured co-located physical microgrid.**
+> **Each scenario is a historically grounded composition of heterogeneous open signals. Neither is a measured co-located physical microgrid.**
 
 ## Data, scenarios and tasks
 
@@ -10,14 +10,14 @@ E-MIND Data is a reproducible, task-agnostic data layer. A scenario declares how
 
 ## Signals and spatial support
 
-| Component | Provider / support | Representation |
-|---|---|---|
-| Weather | ECMWF ERA5 via Copernicus CDS; reference grid point 51.00° N, 10.25° E | Historical reanalysis at one point; hourly aligned weather |
-| Load | Bundesnetzagentur / SMARD; German national/system demand | Native quarter-hour MWh summed into hourly `load_energy_mwh` |
-| Market | SMARD; DE-LU bidding zone day-ahead wholesale market | `day_ahead_price_eur_mwh`; negative prices retained |
-| Fuel | European Commission DG Energy Weekly Oil Bulletin; Germany diesel | Native weekly CSV, both tax variants |
+| Component | DE_CENT support | ES_MED support | Representation |
+|---|---|---|---|
+| Weather | ERA5 point 51.00° N, 10.25° E | ERA5 anchor 39.50° N, −0.75° E | Historical reanalysis at one point; hourly aligned weather |
+| Load | SMARD German national/system demand | REData Spanish peninsular system, Demanda 10297 / 8741 | DE quarter-hour MWh summed; ES native hourly MWh; `load_energy_mwh` |
+| Market | SMARD DE-LU bidding zone | OMIE Spanish day-ahead bidding zone | `day_ahead_price_eur_mwh`; negative prices retained |
+| Fuel | EC Weekly Oil Bulletin; Germany diesel | Same frozen EC workbook; Spain diesel | Native weekly CSV, both tax variants |
 
-These supports differ; national demand and bidding-zone prices are not local measurements at the ERA5 point. [DE_CENT scenario contents](scenarios/DE_CENT.md) describes exact alignment and limitations.
+These supports differ; national demand and bidding-zone prices are not local measurements at the ERA5 point. [DE_CENT](scenarios/DE_CENT.md) and [ES_MED](scenarios/ES_MED.md) describe exact alignment and limitations. No common physical location is implied. Both markets change native resolution to 15 minutes on local 2025-10-01 and retain explicit canonical hourly aggregation. REData/OMIE redistribution remains **PENDING**.
 
 ## Package layout and traceability
 
@@ -37,9 +37,17 @@ For an authorised standalone package, the implemented layout includes:
     validation.json
     checksums.sha256
     components/fuel/fuel_de_2019_2025.csv
+  scenarios/ES_MED/
+    scenario.json
+    hourly.parquet
+    metadata.json
+    lineage.json
+    validation.json
+    checksums.sha256
+    components/fuel/fuel_es_2019_2025.csv
 ```
 
-`hourly.parquet` is the authoritative core scenario. Fuel retains native cadence rather than being repeated or interpolated hourly. Global metadata describes sources, licences, acquisition records and contracts; scenario metadata describes fields and supports; lineage and SHA-256 checksums connect artifacts to their origins. Units and availability must be read from metadata, not guessed. The [release schema](release_schema.md) describes the implemented public package contract; the package metadata governs the actual supplied artifact.
+Each scenario has its own directory, exact source lineage, heterogeneous spatial supports and accepted scientific fingerprint. The [scenario registry](../metadata/scenario_registry.json) exposes both identities without payloads. A release fingerprint identifies the whole supplied package and differs from the individual scientific fingerprints. `hourly.parquet` is the authoritative 1 h UTC interval-start core within each scenario. Fuel retains native cadence rather than being repeated or interpolated hourly. Global metadata describes sources, licences, acquisition records and contracts; scenario metadata describes fields and supports; lineage and SHA-256 checksums connect artifacts to their origins. Units and availability must be read from metadata, not guessed. The [release schema](release_schema.md) describes the implemented public package contract; the package metadata governs the actual supplied artifact.
 
 ## Read and inspect the hourly core
 
@@ -49,8 +57,9 @@ Set `package` to the root of an authorised package. PyArrow is installed by the 
 from pathlib import Path
 import pyarrow.parquet as pq
 
-package = Path("/path/to/E-MIND-package")
-core = package / "scenarios" / "DE_CENT" / "hourly.parquet"
+package = Path("authorised-package")
+scenario_id = "ES_MED"  # or "DE_CENT"; select an authorised scenario
+core = package / "scenarios" / scenario_id / "hourly.parquet"
 table = pq.read_table(core)
 print(table.schema)
 print(table.column_names)
@@ -105,7 +114,7 @@ test = df.loc[(df.index >= "2024-01-01") & (df.index < "2026-01-01")]
 assert train.index.max() < validation.index.min() < test.index.min()
 ```
 
-The provider load is **German system demand, not microgrid load**. Use the conceptual pattern:
+The provider load is **German system demand or Spanish peninsular system demand, not microgrid load**. Use the conceptual pattern:
 
 ```text
 provider system load → dimensionless demand shape → user-configured microgrid load

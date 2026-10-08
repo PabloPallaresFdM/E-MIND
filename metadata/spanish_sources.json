@@ -1,0 +1,34 @@
+{
+  "schema_version": "0.1.0",
+  "scope": "Spanish source identity and pending terms; no legal clearance or payload availability claim",
+  "publication_authorized": false,
+  "raw_bundled": false,
+  "sources": [
+    {
+      "source_id": "es_redata_demanda_10297",
+      "provider": "Red Eléctrica / REData",
+      "status": "PENDING",
+      "license_name": "UNRESOLVED",
+      "source_endpoint": "https://apidatos.ree.es/es/datos/demanda/evolucion",
+      "attribution": "Red Eléctrica / REData; E-MIND peninsular hourly window and UTC conversion",
+      "redistribution_status": "PENDING",
+      "derived_bundling_status": "PENDING",
+      "raw_class": "R2",
+      "raw_bundling_status": "R2_OMITTED_BY_POLICY",
+      "legal_clearance_claim": false
+    },
+    {
+      "source_id": "es_omie_marginalpdbc",
+      "provider": "OMIE",
+      "status": "PENDING",
+      "license_name": "UNRESOLVED",
+      "source_endpoint": "https://www.omie.es/es/file-download",
+      "attribution": "OMIE; E-MIND Spanish MarginalES extraction and hourly quarter-price aggregation",
+      "redistribution_status": "PENDING",
+      "derived_bundling_status": "PENDING",
+      "raw_class": "R2",
+      "raw_bundling_status": "R2_OMITTED_BY_POLICY",
+      "legal_clearance_claim": false
+    }
+  ]
+}

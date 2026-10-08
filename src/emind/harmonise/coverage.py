@@ -10,6 +10,13 @@ class CoverageError(ValueError):
     """A complete exact target window cannot be certified."""
 
 
+def assert_same_timestamps(left, right):
+    """Require identical nonempty timestamp sequences, including their order."""
+    if not left or left != right:
+        raise ValueError('Cross-signal timestamp mismatch')
+    return len(left)
+
+
 def validate_index(instants, interval=HOUR):
     values = list(instants)
     if not values or interval <= timedelta(0):

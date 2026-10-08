@@ -12,6 +12,76 @@ HOURLY = 'e765ce62b660f54455bb3a31da0d7aefc3172b9be274e0b33f0922a16cf1cf7f'
 FUEL = 'fc15a08799d85fd667311c74b15ae0efac20f2bf2d14d1772cf5998f18786d91'
 
 
+def scenario_release_entry(data_root, candidate, component_sources):
+    """Prepare one validated region for the existing generic package builder.
+
+    This is a schema adapter, not publication clearance. Dataset source/license
+    registries and publication gates still belong to the separately reviewed
+    release specification. Unique artifact IDs allow multiple regions together.
+    """
+    import pyarrow.parquet as pq
+    original = read_json(Path(candidate) / 'scenario.json')
+    if set(component_sources) != set(original['components']) or any(not ids for ids in component_sources.values()):
+        raise ValueError('Explicit provider source identities required for every component')
+    validation = read_json(Path(candidate) / 'validation.json')
+    identity = fingerprint(original)
+    if validation['status'] != 'PASS' or validation['scenario_fingerprint'] != identity:
+        raise ValueError('Candidate identity/validation mismatch')
+    sid = original['scenario_id']
+    hourly = Path(candidate) / 'hourly.parquet'
+    fuel = Path(data_root) / original['components']['fuel']['artifact']
+    if sha256(hourly) != validation['hourly_sha256'] or sha256(fuel) != original['components']['fuel']['sha256']:
+        raise ValueError('Candidate artifact mismatch')
+    with fuel.open(newline='') as f:
+        rows = list(csv.DictReader(f))
+    components = {}
+    lineage = []
+    for name, c in original['components'].items():
+        p = select(c, ['provider', 'spatial_support', 'native_temporal_resolution', 'canonical_resolution',
+            'available_at', 'causal_availability_claim', 'transformation', 'anchor', 'tax_variants',
+            'tax_default', 'currency', 'hourly_resampling', 'interpolation', 'forward_fill',
+            'zero_order_hold', 'redistribution', 'raw_policy', 'column_mapping', 'native_timezone',
+            'transition_delivery_day', 'post_change_note', 'country', 'country_code',
+            'observations_per_variant', 'series_id', 'geo_id', 'unit', 'product', 'provider_field',
+            'boundary_sha256', 'valid_time_is_available_at'])
+        p.update(component_id=name, accepted_artifact_sha256=c['sha256'],
+            source_ids=component_sources[name], snapshot_ids=[sid.lower()+'-'+name+'-accepted'],
+            transformation_id=sid.lower()+'-'+name+'-transform',
+            authoritative_path='components/fuel/'+fuel.name if name=='fuel' else 'hourly.parquet')
+        if name == 'fuel':
+            p.update(semantic_kind='native_weekly_economic_bulletin', format='CSV',
+                columns=[dict(name=k, type='float64' if k in {'source_value','excel_date_serial'} else 'integer' if k=='source_row_index' else 'string',
+                    nullable=any(r[k]=='' for r in rows)) for k in rows[0]],
+                units={'source_value':'unconverted provider value per 1000 l; currency UNRESOLVED'},
+                key_columns=['reference_date','tax_variant'], ordering='Accepted row order; ascending dates per tax variant',
+                valid_time_representation='Date-only reference, not publication/availability',
+                missingness_policy='Source gaps retained; no interpolation, ZOH or forward fill')
+        components[name] = p
+        lineage.append(dict(component_id=name, accepted_artifact_sha256=c['sha256'],
+            release_artifact_path=p['authoritative_path'], source_ids=p['source_ids'], snapshot_ids=p['snapshot_ids'],
+            transformation_id=p['transformation_id'], transformation=p['transformation']))
+    scenario = select(original, ['scenario_id','scenario_class','horizon','hourly_columns',
+        'interval_semantics','historical_colocated_microgrid','co_location_claim','technical_limitations','assembly_transformation'])
+    scenario.update(rows=original['horizon']['rows'], canonical_timebase='1 hour UTC',
+        hourly_artifact='hourly.parquet', scenario_fingerprint=identity, accepted_composition_fingerprint=identity,
+        accepted_composition_scheme=original['schema_version'], components=components,
+        artifact_status='LOCAL_DRY_RUN_NOT_PUBLIC_RELEASE')
+    ids = {k:sid.lower()+'-'+k for k in ('descriptor','hourly','fuel')}
+    entry = dict(scenario_id=sid, accepted_descriptor_id=ids['descriptor'], scenario=scenario,
+        metadata=dict(scenario_id=sid, hourly_columns=[dict(name=f.name,
+            type=str(f.type) if f.name=='timestamp_utc' else 'float64', nullable=False,
+            unit='UTC' if f.name=='timestamp_utc' else 'MWh' if f.name=='load_energy_mwh' else
+                'EUR/MWh' if f.name=='day_ahead_price_eur_mwh' else 'K' if f.name=='air_temperature_2m_k' else
+                'J/m2' if f.name=='surface_solar_radiation_downwards_j_m2' else 'W/m2' if f.name=='surface_solar_irradiance_w_m2' else 'm/s')
+            for f in pq.read_schema(hourly)],
+            side_components=[components['fuel']]),
+        lineage=dict(scenario_id=sid, components=lineage, accepted_composition_fingerprint=identity,
+            assembly_transformation=original['assembly_transformation']),
+        artifacts=[dict(artifact_id=ids['hourly'],path='hourly.parquet',sha256=sha256(hourly),role='authoritative_hourly_core'),
+            dict(artifact_id=ids['fuel'],path='components/fuel/'+fuel.name,sha256=sha256(fuel),role='authoritative_native_component')])
+    return entry, {ids['descriptor']:Path(candidate)/'scenario.json', ids['hourly']:hourly, ids['fuel']:fuel}
+
+
 def select(value, keys):
     return {k: value[k] for k in keys if k in value}
 

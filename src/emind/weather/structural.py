@@ -20,7 +20,7 @@ def audit_plan(raw_root, config, *, include_boundary=True):
     if include_boundary:
         year = _stamp(config['ssrd']['final_provider_validity']).year
         objects.append((root / f'{year}_boundary' / build_boundary_request(config)['filename'], None, None))
-    return objects
+    return [(root/p.name if not p.exists() and (root/p.name).exists() else p, y, m) for p,y,m in objects]
 
 
 def boundary_accounting(config):

@@ -1,4 +1,4 @@
-"""Native weekly Germany diesel audit, adapted from interrupted Phase03B code.
+"""Native weekly reviewed-country diesel audit, adapted from interrupted Phase03B code.
 
 Reads the two reviewed XLSX fields without rewriting the workbook. This is an
 interim audit representation, NOT a canonical fuel selection or currency claim.
@@ -48,14 +48,18 @@ def _cell(cell, shared):
     return text, 'numeric'
 
 
-def extract_germany(path, start=date(2019, 1, 1), end=date(2023, 12, 31)):
+def extract_country(path, start=date(2019, 1, 1), end=date(2023, 12, 31), *, country_code='DE'):
     """Return weekly rows for BOTH tax bases and audit evidence; never fill gaps.
 
-    Schema support is intentionally limited to Date in A and the exact Germany
-    diesel field/unit headers in BD. A blank numeric cell is MISSING; strings,
+    Schema support is limited to Date in A and reviewed DE/BD or ES/CA
+    diesel fields; both tax variants retain the original workbook semantics. A blank numeric cell is MISSING; strings,
     errors, booleans and cached formula results are not silently treated as data.
     Caller verifies the immutable workbook hash before and after this read.
     """
+    if country_code not in ('DE', 'ES'):
+        raise ValueError('Unreviewed country')
+    price_column = 'BD' if country_code == 'DE' else 'CA'
+    variants = tuple((sheet, basis, field.replace('DE_', country_code+'_', 1)) for sheet, basis, field in VARIANTS)
     if start > end:
         raise ValueError('Invalid fuel date range')
     rows, evidence = [], {}
@@ -74,7 +78,7 @@ def extract_germany(path, start=date(2019, 1, 1), end=date(2023, 12, 31)):
         sheets = {s.get('name'): s for s in sheet_elements}
         if len(sheets) != len(sheet_elements):
             raise ValueError('Duplicate workbook sheet names')
-        for sheet, basis, expected in VARIANTS:
+        for sheet, basis, expected in variants:
             if sheet not in sheets or sheets[sheet].get(REL) not in rels:
                 raise ValueError('Missing required diesel sheet: ' + sheet)
             relationship = rels[sheets[sheet].get(REL)]
@@ -98,7 +102,7 @@ def extract_germany(path, start=date(2019, 1, 1), end=date(2023, 12, 31)):
                     for cell in element.findall('s:c', NS):
                         ref = cell.get('r', '')
                         column = ref.rstrip('0123456789')
-                        if column not in ('A', 'BD'):
+                        if column not in ('A', price_column):
                             continue
                         if ref != column + str(index) or column in cells:
                             raise ValueError('Invalid/duplicate selected cell reference')
@@ -108,7 +112,7 @@ def extract_germany(path, start=date(2019, 1, 1), end=date(2023, 12, 31)):
                         element.clear()
                         continue
                     date_value, date_kind = cells.get('A', (None, 'numeric'))
-                    raw, kind = cells.get('BD', (None, 'numeric'))
+                    raw, kind = cells.get(price_column, (None, 'numeric'))
                     if date_value is None:
                         if raw is not None:
                             raise ValueError('Diesel value without a date')
@@ -136,7 +140,7 @@ def extract_germany(path, start=date(2019, 1, 1), end=date(2023, 12, 31)):
                             'date': day.isoformat(), 'date_serial_raw': date_value,
                             'sheet_name': sheet, 'worksheet_member': member,
                             'source_row_index': index, 'date_cell': 'A' + str(index),
-                            'value_cell': 'BD' + str(index), 'source_field': expected,
+                            'value_cell': price_column + str(index), 'source_field': expected,
                             'tax_basis': basis, 'diesel_price_native': value,
                             'value_raw': raw, 'native_unit_denominator': '1000 l',
                             'native_currency': 'UNKNOWN_IN_WORKBOOK',
@@ -145,10 +149,10 @@ def extract_germany(path, start=date(2019, 1, 1), end=date(2023, 12, 31)):
                             'quality_flag': 'ORIGINAL' if value is not None else 'MISSING',
                         })
                     element.clear()
-            if (header.get(1, {}).get('BD') != expected
+            if (header.get(1, {}).get(price_column) != expected
                     or header.get(3, {}).get('A') != 'Date'
-                    or header.get(3, {}).get('BD') != '1000 l'):
-                raise ValueError('Unreviewed Germany diesel/date/unit header')
+                    or header.get(3, {}).get(price_column) != '1000 l'):
+                raise ValueError('Unreviewed ' + country_code + ' diesel/date/unit header')
             selected.sort(key=lambda r: (r['date'], r['source_row_index']))
             dates = [date.fromisoformat(r['date']) for r in selected]
             if not dates:
@@ -171,3 +175,7 @@ def extract_germany(path, start=date(2019, 1, 1), end=date(2023, 12, 31)):
             }
             rows.extend(selected)
     return rows, evidence
+
+
+def extract_germany(path, start=date(2019, 1, 1), end=date(2023, 12, 31)):
+    return extract_country(path, start, end, country_code='DE')

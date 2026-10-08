@@ -1,6 +1,6 @@
 # DE_CENT
 
-**Status:** the only scientifically closed E-MIND scenario. Covers complete years **2019–2025**, with **61,368 hourly UTC intervals** in `[2019-01-01T00:00:00Z, 2026-01-01T00:00:00Z)`. Scientific closure does not imply public archival issuance: the dataset remains pre-release, NOT_ISSUED, not archived, without an E-MIND DOI.
+**Status:** technically validated, scientifically closed E-MIND scenario (`CORE_FULL_MARKET`). Covers complete years **2019–2025**, with **61,368 hourly UTC intervals** in `[2019-01-01T00:00:00Z, 2026-01-01T00:00:00Z)`. Scientific closure does not imply public archival issuance: the dataset remains pre-release, NOT_ISSUED, not archived, without an E-MIND DOI.
 
 > **DE_CENT is a historically grounded composition of heterogeneous open signals. It is not a measured co-located physical microgrid.**
 

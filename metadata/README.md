@@ -1,7 +1,24 @@
-# Source metadata
+# Source and scenario metadata
 
-Source IDs, scientific/provider attributes, metadata-check timestamps, status enums, country mappings and scenario policy retain the established identities. The source registry is a public projection of historical source registration: prose about local execution is omitted, and matching YAML/CSV representations agree. Source acceptance does not mean a scenario is assembled or publicly released; only DE_CENT is scientifically closed.
+DE_CENT and ES_MED are technically validated scientific scenarios for 2019–2025.
+`scenario_registry.json` exposes independent fingerprints, source identities,
+transformations and heterogeneous spatial supports without scientific payloads.
+Public archival issuance remains **NOT_ISSUED**; no E-MIND DOI is assigned.
 
-`historical_snapshot_registry.json` preserves request parameters, original filenames, provider snapshot IDs and SHA-256 hashes for the initial captures and boundary supplements. It omits host-specific raw paths; it is **not** the complete 2019–2025 acquisition inventory. A standalone release carries its complete sanitized snapshot/acquisition lineage. No RAW payloads or private integration fixtures are bundled in this checkout.
+The paired source YAML/CSV and country matrix distinguish technical validation
+from source rights. REData/OMIE remain **PENDING_REVIEW** in the registration enum;
+canonical/derived redistribution remains **PENDING** in `spanish_sources.json`.
+Historical optional Spanish user-supplied IDs remain noncanonical compatibility
+entries. Planned DK_WEST, GB and FI_SOUTH are not closed scenarios.
 
-`licenses.json` separates original project grants from upstream terms. Planned scenario classifications in `scenario_policy_v0.1.yaml` and the country matrix are policy commitments, not claims of public data availability. Technical provenance labels may remain for compatibility; public installation does not depend on them.
+`licenses.json` preserves scoped DE/shared ERA5/EC terms and project grants.
+`spanish_sources.json` preserves attribution and unresolved Spanish permissions;
+omitting RAW does not clear derived rights. Project MIT and CC BY 4.0 grants
+apply to project contributions and do not relicense upstream data.
+
+`historical_snapshot_registry.json` is the initial DE capture/boundary provenance,
+not a complete 2019–2025 or multi-region acquisition inventory. Its hashes identify
+omitted objects and do not imply payload availability or redistribution rights.
+A separately authorised standalone package carries its own complete safe lineage.
+The safe ES accepted-identity record serves the offline accepted-input adapter;
+it does not include internal audits, provider logs or native data.

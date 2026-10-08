@@ -8,6 +8,7 @@ from pathlib import Path, PurePosixPath
 
 from emind.scenario import fingerprint, sha256
 from emind.release_gates import RC_VERSION, STATE, validate_rc_gates
+from emind.release_validation import validate_preflight, validate_inventory
 
 SCHEMA_VERSION = '0.1.0'
 IDENTITY_SCHEME = 'emind-release-identity-1'
@@ -212,6 +213,7 @@ def build_release(spec, inputs, output, code_commit, implementation_hashes, *, a
         raise ValueError('Invalid code commit')
     public_scan(canonical_json(spec))
     validate_public_values(spec)
+    validate_preflight(spec, inputs, read_json, fingerprint)
     pending = spec.get('publication_items', PENDING)
     scenario_inputs = sorted(spec['scenarios'], key=lambda x: x['scenario_id'])
     if not scenario_inputs or len({s['scenario_id'] for s in scenario_inputs}) != len(scenario_inputs):
@@ -311,6 +313,8 @@ def verify_release(root):
     if (root / 'checksums.sha256').read_bytes() != checksums(root):
         raise ValueError('Root checksum mismatch')
     manifest = read_json(root / 'manifest.json'); identity = read_json(root / 'identity.json')
+    registry = read_json(root / 'metadata/scenario_registry.json')['scenarios']
+    validate_inventory(manifest['scenarios'], paths, registry, identity['scenarios'])
     for name in ['manifest', 'identity', 'validation']:
         validate_document(name, read_json(root / f'{name}.json'))
     inventory = [e['path'] for e in manifest['files']]

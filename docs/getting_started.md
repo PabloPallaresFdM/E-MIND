@@ -1,6 +1,6 @@
 # Getting started
 
-This guide verifies the software without scientific downloads or provider credentials. Python **3.12** is the supported baseline (validated with 3.12.14 and PyArrow 25.0.1). Run from the repository root. [README](../README.md) explains scope and publication status.
+This guide verifies the software without scientific downloads or provider credentials. Python **3.12** is the supported baseline (validated with 3.12.13 and PyArrow 25.0.1). Run from the repository root. [README](../README.md) explains scope and publication status.
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ Requirements pin PyArrow, PyYAML and jsonschema; transitive dependencies are not
 
 ## Understand the result
 
-The validated public baseline is **248 tests: 233 passed, 15 skipped, 0 failures, 0 errors**. Eleven tests require **accepted scientific integration inputs**: accepted artifacts and matching component/acquisition provenance. Four tests require **optional frozen provenance fixtures**: two frozen RAW GRIB inputs and two original acquisition-script fixtures. Expected skips do not indicate installation failure. Synthetic scenario tests run with PyArrow installed.
+The validated public baseline is **284 tests: 269 passed, 15 skipped, 0 failures, 0 errors**. Eleven tests require **accepted scientific integration inputs**: accepted artifacts and matching component/acquisition provenance. Four tests require **optional frozen provenance fixtures**: two frozen RAW GRIB inputs and two original acquisition-script fixtures. Expected skips do not indicate installation failure. Synthetic scenario tests run with PyArrow installed.
 
 For a clean software-only run in an environment previously used for scientific validation, clear fixture selectors in the current shell before repeating the test command:
 
@@ -73,6 +73,6 @@ A standalone dataset package alone does not supply all accepted integration fixt
 | HTTPS clone denied / repository not found | Check the exact public URL above and your network/proxy connection to GitHub. Anonymous HTTPS cloning requires no GitHub authentication. |
 | 15 expected skips | No scientific fixtures are configured; installation has succeeded if the remaining tests pass with no failures/errors. More skips require investigation, especially PyArrow skips. |
 
-## Next: inspect authorised data
+## Next: inspect metadata, then authorised data
 
-Git contains software and metadata, not the accepted scientific payload. No public archival download is currently available. If you already have an authorised standalone package, follow [Dataset overview](dataset_overview.md) to verify checksums, inspect timestamps and plan chronological splits. Do not enable integration tests using guessed fixture locations.
+Inspect the [scenario registry](../metadata/scenario_registry.json), source terms and [DE_CENT](scenarios/DE_CENT.md) / [ES_MED](scenarios/ES_MED.md) profiles after the software tests. Git contains software and metadata, not the accepted scientific payload. No public archival download is currently available. When an authorised standalone package is supplied, download it through its explicitly authorised distribution channel; there is no public data URL to use today. Follow [Dataset overview](dataset_overview.md) to verify checksums, inspect timestamps and plan chronological splits. Do not enable integration tests using guessed fixture locations.

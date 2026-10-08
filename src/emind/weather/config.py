@@ -116,7 +116,16 @@ def validate_weather_config(config):
                or v["provider_name"] not in order for v in variables):
             raise WeatherConfigError("variables: invalid provider identity")
         normalized["variables"] = sorted(variables, key=lambda v: order[v["provider_name"]])
-    _check(normalized, _CONTRACT)
+    contract = _CONTRACT
+    if normalized.get('scenario_id') == 'ES_MED':
+        contract = deepcopy(_CONTRACT)
+        contract.update(scenario_id='ES_MED', anchor={'latitude':39.5,'longitude':-0.75},
+                        audit_bbox={'north':39.75,'west':-1.0,'south':39.25,'east':-0.5})
+        sha = normalized.get('ssrd', {}).get('boundary_sha256')
+        if sha != 'PENDING_ACQUISITION' and (not isinstance(sha,str) or len(sha)!=64 or any(c not in '0123456789abcdef' for c in sha)):
+            raise WeatherConfigError('Invalid ES boundary checksum')
+        contract['ssrd']['boundary_sha256'] = sha
+    _check(normalized, contract)
     return normalized
 
 

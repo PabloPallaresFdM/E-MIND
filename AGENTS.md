@@ -1,6 +1,6 @@
 # Contributor instructions
 
-E-MIND is task-agnostic data infrastructure. DE_CENT is currently the only scientifically closed scenario. Preserve provider semantics, temporal/spatial support, source attribution and the distinction between Data and future Env / Reference Tasks.
+E-MIND is task-agnostic data infrastructure. DE_CENT and ES_MED are technically validated scientific scenarios. Public archival data distribution is NOT_ISSUED, and REData/OMIE redistribution remains PENDING. Preserve provider semantics, temporal/spatial support, source attribution and the distinction between Data and future Env / Reference Tasks.
 
 - Keep accepted scientific artifacts and fingerprints immutable; corrections require explicit versioning and validation.
 - Never commit credentials, provider RAW payloads, caches or generated scientific data.

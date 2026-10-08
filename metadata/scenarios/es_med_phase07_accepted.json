@@ -1,0 +1,48 @@
+{
+  "scenario_id": "ES_MED",
+  "scenario_class": "CORE_FULL_MARKET",
+  "scenario_fingerprint": "d255e6e77c943f7f5d9b0b587e359823f3987b09416e6354f8c4ae33d4153581",
+  "fingerprint_algorithm": "SHA256 sorted compact UTF-8 JSON of scenario.json; allow_nan=false",
+  "hourly_sha256": "1003b8f76081f47a3bc2866cea9df0a533c14c7ee7aadc8965a4c696f3447aef",
+  "native_fuel_sha256": "0497fe0fd8bf18a70741c409d2e9511fa31fc15d07aa55ae21459f08692ae8c5",
+  "component_hashes": {
+    "weather": "48a193da03fbbb93d9093923e6d2d0615c5195a80c7dd49147cb772244c736b3",
+    "load": "ccbb3d6c20482aa0b323f470089532a2f86d43c13c4b951953d9809969c59427",
+    "market": "a9cf9eb44f411f7a1c1510e111710ba0b6e373ec51f565967f77ab6668aa19fa",
+    "fuel": "0497fe0fd8bf18a70741c409d2e9511fa31fc15d07aa55ae21459f08692ae8c5"
+  },
+  "redistribution": {
+    "REData": "PENDING",
+    "OMIE": "PENDING"
+  },
+  "release_projection_component_sources": {
+    "weather": [
+      "era5_timeseries_2m_temperature",
+      "era5_timeseries_surface_solar_radiation_downwards",
+      "era5_timeseries_10m_u_component_of_wind",
+      "era5_timeseries_10m_v_component_of_wind",
+      "era5_timeseries_100m_u_component_of_wind",
+      "era5_timeseries_100m_v_component_of_wind"
+    ],
+    "load": [
+      "es_redata_demanda_10297"
+    ],
+    "market": [
+      "es_omie_marginalpdbc"
+    ],
+    "fuel": [
+      "eu_ec_weekly_oil_bulletin_diesel"
+    ]
+  },
+  "public_payload_issued": false,
+  "available_at": "UNKNOWN",
+  "fuel_currency": "UNRESOLVED",
+  "limitations": [
+    "REData and OMIE redistribution PENDING; technical classification is not publication clearance",
+    "Fuel currency linkage UNRESOLVED; native numbers per 1000 l, not an hourly dispatch cost",
+    "available_at UNKNOWN for all signals; realised weather, no causal availability claim",
+    "Native source gaps retained; no common physical microgrid location"
+  ],
+  "artifact_status": "TECHNICALLY_VALIDATED_NOT_ISSUED",
+  "payload_included": false
+}

@@ -53,8 +53,8 @@ def summarise(rows):
     return result,supports['WITH_TAX']==supports['WITHOUT_TAX']
 
 
-def candidate_rows(rows,snapshot):
-    return [{'reference_date':r['date'],'country':'Germany','country_code':'DE',
+def candidate_rows(rows,snapshot,*,country='Germany',country_code='DE'):
+    return [{'reference_date':r['date'],'country':country,'country_code':country_code,
              'spatial_support':'COUNTRY_LEVEL','product':'automotive_diesel',
              'tax_variant':r['tax_basis'],'source_value':r['diesel_price_native'],
              'source_unit':'UNKNOWN_CURRENCY_PER_1000_L','source_volume_unit':'1000 l',

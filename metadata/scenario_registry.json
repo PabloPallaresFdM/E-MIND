@@ -1,0 +1,234 @@
+{
+  "schema_version": "0.1.0",
+  "publication_status": "NOT_ISSUED",
+  "doi": null,
+  "scientific_payload_included": false,
+  "scenarios": [
+    {
+      "scenario_id": "DE_CENT",
+      "scenario_class": "CORE_FULL_MARKET",
+      "horizon": {
+        "start": "2019-01-01T00:00:00Z",
+        "end_exclusive": "2026-01-01T00:00:00Z",
+        "rows": 61368,
+        "complete_calendar_years": "2019-2025"
+      },
+      "scientific_status": "TECHNICALLY_VALIDATED",
+      "scenario_fingerprint": "51cb5960e78676211eff2a52353fcb666ab1b7ea09ad6fd2ff714199cf2e76df",
+      "payload_included": false,
+      "archival_distribution": "PENDING",
+      "canonical_time": {
+        "frequency_hours": 1,
+        "timezone": "UTC",
+        "timestamp_semantics": "interval_start"
+      },
+      "available_at": "UNKNOWN",
+      "components": {
+        "weather": {
+          "provider": "ECMWF / CDS / C3S",
+          "spatial_support": "ERA5 single-grid-point atmospheric estimate; local reference anchor 51.00 N, 10.25 E",
+          "native_temporal_resolution": "hourly instantaneous states / one-hour SSRD accumulation",
+          "source_ids": [
+            "era5_timeseries_2m_temperature",
+            "era5_timeseries_surface_solar_radiation_downwards",
+            "era5_timeseries_10m_u_component_of_wind",
+            "era5_timeseries_10m_v_component_of_wind",
+            "era5_timeseries_100m_u_component_of_wind",
+            "era5_timeseries_100m_v_component_of_wind"
+          ],
+          "transformation": [
+            "single-grid-point extraction (51.00 N,10.25 E)",
+            "SSRD provider endpoint aligned to preceding canonical interval start; RAW timestamps preserved",
+            "irradiance = SSRD / 3600",
+            "wind speeds = sqrt(u*u + v*v)",
+            "serialization to UTC timestamp and float64 Parquet"
+          ],
+          "canonical_resolution": "1h UTC",
+          "anchor": {
+            "latitude": 51.0,
+            "longitude": 10.25
+          },
+          "causal_availability_claim": false,
+          "valid_time_is_available_at": false
+        },
+        "load": {
+          "provider": "Bundesnetzagentur / SMARD",
+          "spatial_support": "German national/system grid load",
+          "native_temporal_resolution": "15-minute",
+          "source_ids": [
+            "de_smard_electrical_load"
+          ],
+          "transformation": "Hourly sum of four physical quarter-hour energies; no scaling",
+          "canonical_resolution": "1h UTC",
+          "causal_availability_claim": false
+        },
+        "market": {
+          "provider": "Bundesnetzagentur / SMARD",
+          "spatial_support": "DE-LU bidding zone",
+          "native_temporal_resolution": "60 min before local 2025-10-01; 15 min from local 2025-10-01",
+          "source_ids": [
+            "de_smard_day_ahead"
+          ],
+          "transformation": {
+            "unit": "EUR/MWh",
+            "native_frequency": "MIXED",
+            "native_regimes": [
+              {
+                "start": "2019-01-01T00:00:00Z",
+                "end_exclusive": "2025-09-30T22:00:00Z",
+                "interval_minutes": 60,
+                "transformation": "IDENTITY",
+                "quality": "ORIGINAL"
+              },
+              {
+                "start": "2025-09-30T22:00:00Z",
+                "end_exclusive": "2026-01-01T00:00:00Z",
+                "interval_minutes": 15,
+                "transformation": "ARITHMETIC_MEAN_FOUR_QUARTERS",
+                "quality": "AGGREGATED_NATIVE"
+              }
+            ],
+            "transition_local": "2025-10-01T00:00:00+02:00",
+            "limitation": "Equivalent constant-power/equal-energy exposure; not exact settlement for unequal quarter-hour energies"
+          },
+          "canonical_resolution": "1h UTC",
+          "post_change_note": "Post-change hourly values are derived arithmetic means of four physical quarter-hour prices, not native hourly auction products; negative prices are valid.",
+          "causal_availability_claim": false
+        },
+        "fuel": {
+          "provider": "European Commission Weekly Oil Bulletin",
+          "spatial_support": "Germany national bulletin",
+          "native_temporal_resolution": "weekly / irregular weekly",
+          "source_ids": [
+            "eu_ec_weekly_oil_bulletin_diesel"
+          ],
+          "transformation": "Germany automotive diesel extraction; both tax variants; no interpolation/resampling",
+          "canonical_resolution": "native cadence; no hourly representation",
+          "tax_variants": [
+            "WITH_TAX",
+            "WITHOUT_TAX"
+          ],
+          "tax_default": "UNSELECTED",
+          "currency": "UNRESOLVED",
+          "interpolation": false,
+          "hourly_resampling": false,
+          "observations_per_variant": {
+            "WITH_TAX": 356,
+            "WITHOUT_TAX": 356
+          },
+          "causal_availability_claim": false
+        }
+      },
+      "source_rights_reference": "licenses.json"
+    },
+    {
+      "scenario_id": "ES_MED",
+      "scenario_class": "CORE_FULL_MARKET",
+      "horizon": {
+        "start": "2019-01-01T00:00:00Z",
+        "end_exclusive": "2026-01-01T00:00:00Z",
+        "rows": 61368,
+        "complete_calendar_years": "2019-2025"
+      },
+      "scientific_status": "TECHNICALLY_VALIDATED",
+      "scenario_fingerprint": "d255e6e77c943f7f5d9b0b587e359823f3987b09416e6354f8c4ae33d4153581",
+      "payload_included": false,
+      "archival_distribution": "PENDING",
+      "canonical_time": {
+        "frequency_hours": 1,
+        "timezone": "UTC",
+        "timestamp_semantics": "interval_start"
+      },
+      "available_at": "UNKNOWN",
+      "components": {
+        "weather": {
+          "provider": "ECMWF / CDS / C3S",
+          "spatial_support": "ERA5 reference grid point 39.50 N, -0.75 E",
+          "native_temporal_resolution": "hourly instantaneous states / one-hour SSRD accumulation",
+          "source_ids": [
+            "era5_timeseries_2m_temperature",
+            "era5_timeseries_surface_solar_radiation_downwards",
+            "era5_timeseries_10m_u_component_of_wind",
+            "era5_timeseries_10m_v_component_of_wind",
+            "era5_timeseries_100m_u_component_of_wind",
+            "era5_timeseries_100m_v_component_of_wind"
+          ],
+          "transformation": "Instantaneous validity t; one-hour SSRD endpoint t+1 maps to t; irradiance=SSRD/3600; vector wind speeds; no interpolation/clipping",
+          "canonical_resolution": "1h UTC",
+          "anchor": {
+            "latitude": 39.5,
+            "longitude": -0.75
+          },
+          "causal_availability_claim": false,
+          "valid_time_is_available_at": false,
+          "redistribution": "EXISTING_ACCEPTED_SCOPED_TREATMENT"
+        },
+        "load": {
+          "provider": "Red El\u00e9ctrica / REData",
+          "spatial_support": "Spanish peninsular electrical system; geo_id=8741",
+          "native_temporal_resolution": "hourly MWh at power-plant busbars",
+          "source_ids": [
+            "es_redata_demanda_10297"
+          ],
+          "transformation": "Preserved native hourly demand energy; interval-start UTC conversion, window selection; no scaling",
+          "column_mapping": {
+            "load_energy_mwh": "load_energy_mwh"
+          },
+          "canonical_resolution": "1h UTC",
+          "series_id": "10297",
+          "geo_id": "8741",
+          "native_timezone": "Europe/Madrid with explicit offsets",
+          "causal_availability_claim": false,
+          "redistribution": "PENDING"
+        },
+        "market": {
+          "provider": "OMIE",
+          "spatial_support": "Spanish day-ahead bidding zone",
+          "native_temporal_resolution": "60 min before local delivery day 2025-10-01; 15 min from that day",
+          "source_ids": [
+            "es_omie_marginalpdbc"
+          ],
+          "transformation": "Chronological Madrid native delivery intervals; Decimal time-weighted hourly arithmetic mean after 15-minute transition; signed prices preserved",
+          "column_mapping": {
+            "day_ahead_price_eur_mwh": "wholesale_market_price_eur_mwh"
+          },
+          "canonical_resolution": "1h UTC",
+          "product": "MARGINALPDBC",
+          "provider_field": "MarginalES",
+          "native_timezone": "Europe/Madrid",
+          "transition_delivery_day": "2025-10-01",
+          "post_change_note": "Derived hourly price, not native hourly auction product; explicit source-to-scenario column mapping",
+          "causal_availability_claim": false,
+          "redistribution": "PENDING"
+        },
+        "fuel": {
+          "provider": "European Commission Weekly Oil Bulletin",
+          "spatial_support": "Spain national Weekly Oil Bulletin",
+          "native_temporal_resolution": "weekly / irregular weekly",
+          "source_ids": [
+            "eu_ec_weekly_oil_bulletin_diesel"
+          ],
+          "transformation": "Spain automotive diesel extraction; both native tax variants; no conversion/resampling",
+          "canonical_resolution": "native cadence; no hourly representation",
+          "tax_variants": [
+            "WITH_TAX",
+            "WITHOUT_TAX"
+          ],
+          "tax_default": "UNSELECTED",
+          "currency": "UNRESOLVED",
+          "interpolation": false,
+          "zero_order_hold": false,
+          "forward_fill": false,
+          "hourly_resampling": false,
+          "observations_per_variant": {
+            "WITH_TAX": 356,
+            "WITHOUT_TAX": 356
+          },
+          "causal_availability_claim": false,
+          "redistribution": "EXISTING_ACCEPTED_SCOPED_TREATMENT"
+        }
+      },
+      "source_rights_reference": "spanish_sources.json"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ The checkout contains source code, synthetic regression tests, scientific reques
 
 ## Retained scientific capabilities
 
-The provider adapters validate immutable input bytes, parse native labels, reconstruct physical UTC intervals and preserve energy/price semantics. Harmonisation modules cover lossless load/market aggregation, mixed native market resolution, native fuel extraction, weather validity/accumulation alignment and information-loss diagnostics. Scenario assembly and release verification retain the accepted DE_CENT hashes and fingerprint.
+The provider adapters validate immutable input bytes, parse native labels, reconstruct physical UTC intervals and preserve energy/price semantics. Harmonisation modules cover lossless load/market aggregation, mixed native market resolution, native fuel extraction, weather validity/accumulation alignment and information-loss diagnostics. Scenario assembly and release verification retain independent accepted DE_CENT and ES_MED hashes and fingerprints. Multi-scenario packaging validates region identity, exact hourly support and native side components separately. The accepted-input adapters require external matching inputs; no provider payload is bundled.
 
 Tests with historical module names use synthetic fixtures. Those names and artifact identifiers are compatibility/provenance labels; users do not need the project's development history to install or read the data. The obsolete combined execution wrapper is replaced in this distribution by its byte-equivalent serialization functions; hourly construction is exposed as its unchanged scientific function, without local operations or private report dependencies.
 

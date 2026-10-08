@@ -53,6 +53,8 @@ def discover_inputs(raw_root, config):
     objects = [(root / str(year) / build_monthly_request(year, month, config)['filename'], year, month)
                for year in range(start.year, end.year + 1) for month in range(1, 13)]
     boundary = root / f"{_stamp(config['ssrd']['final_provider_validity']).year}_boundary" / build_boundary_request(config)['filename']
+    objects = [(root/p.name if not p.exists() and (root/p.name).exists() else p, y, m) for p,y,m in objects]
+    if not boundary.exists() and (root/boundary.name).exists(): boundary = root/boundary.name
     _require(boundary.is_file(), 'missing final SSRD boundary object')
     objects.append((boundary, None, None))
     _require(all(p.is_file() for p, _, _ in objects), 'missing monthly provider object')
@@ -263,7 +265,7 @@ def harmonise_weather(config_path, raw_root, output_dir, *, validated_inventory=
     table = _table(data)
     validate_table(table, config)
     output_dir.mkdir(parents=True, exist_ok=False)
-    output = output_dir / 'weather_de_cent_2019_2025_reproduced.parquet'
+    output = output_dir / f"weather_{config['scenario_id'].lower()}_2019_2025_reproduced.parquet"
     pq.write_table(table, output, compression='snappy', version='2.6')
     actual = pq.read_table(output)
     validation = validate_table(actual, config)

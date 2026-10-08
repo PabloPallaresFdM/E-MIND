@@ -1,6 +1,6 @@
 # Release schema and verification
 
-This is the implemented **local release-candidate** contract, not a public archival release announcement. DE_CENT is the only scientifically closed scenario; candidate version `0.1.0-rc.1`, schema `0.1.0`, publication status `NOT_ISSUED`, DOI null and archival status `not_archived`.
+This is the implemented **multi-scenario package contract**, schema `0.1.0`. DE_CENT and ES_MED are technically validated scientific scenarios; public archival issuance remains `NOT_ISSUED`, DOI null and archival status `not_archived`. The historical DE_CENT local candidate is `0.1.0-rc.1`; the two-region development exercise uses `0.1.0-dev.phase07` and is not an authorised public payload release. REData/OMIE redistribution remains `PENDING`.
 
 ## Layout
 
@@ -31,21 +31,29 @@ This is the implemented **local release-candidate** contract, not a public archi
     validation.json
     checksums.sha256
     components/fuel/fuel_de_2019_2025.csv
+  scenarios/ES_MED/
+    scenario.json
+    hourly.parquet
+    metadata.json
+    lineage.json
+    validation.json
+    checksums.sha256
+    components/fuel/fuel_es_2019_2025.csv
 ```
 
-Only validated, rights-cleared scenarios may be included. Provider RAW payloads are omitted; safe request parameters, snapshot identifiers and expected SHA-256 hashes retain acquisition traceability. This software checkout contains no accepted data or public integration-fixture distribution.
+Public payload distribution requires validated, rights-cleared scenarios. Technical closure alone is insufficient; opted-in development builds do not establish publication clearance. Provider RAW payloads are omitted; safe request parameters, snapshot identifiers and expected SHA-256 hashes retain acquisition traceability. This software checkout contains no accepted data or public integration-fixture distribution.
 
 ## Authoritative objects and time
 
-DE_CENT `hourly.parquet` retains accepted bytes: 61,368 rows in `[2019-01-01T00:00:00Z, 2026-01-01T00:00:00Z)`. `timestamp_utc` is `timestamp[us, tz=UTC]`, sorted unique hourly interval starts; eleven numeric columns are float64, non-null and finite for this scenario. Exact order and units are declared in scenario metadata.
+Each accepted DE_CENT / ES_MED `hourly.parquet` retains its own accepted bytes: 61,368 rows in `[2019-01-01T00:00:00Z, 2026-01-01T00:00:00Z)`. `timestamp_utc` is `timestamp[us, tz=UTC]`, sorted unique hourly interval starts; eleven numeric columns are float64, non-null and finite for this scenario. Exact order and units are declared in scenario metadata.
 
-Weather uses a single ERA5 reference point, system load uses summed quarter-hour MWh, and market uses DE-LU EUR/MWh. From local 2025-10-01, hourly prices are means of four quarter-hour prices. Native fuel remains a separate weekly CSV with both tax variants, no interpolation, unresolved currency linkage, unselected tax default and unknown precise availability. See [DE_CENT](scenarios/DE_CENT.md) for temporal and spatial interpretation.
+Weather uses a scenario-specific ERA5 point; DE load sums quarter-hour MWh, whereas ES peninsular load preserves native hourly MWh. Market uses the declared DE-LU or Spanish bidding zone, in EUR/MWh. From local 2025-10-01, hourly prices are means of four quarter-hour prices. Native fuel remains a separate weekly CSV with both tax variants, no interpolation, unresolved currency linkage, unselected tax default and unknown precise availability. See [DE_CENT](scenarios/DE_CENT.md) and [ES_MED](scenarios/ES_MED.md) for their independent temporal and spatial interpretations.
 
 A scenario is a heterogeneous composition, not a measured co-located microgrid. No demand scaling, plant, actions, reward or causal controller information set belongs to this contract. Valid time does not imply available-at time.
 
 ## Metadata and identities
 
-Global metadata records versions, sources, snapshot/acquisition references, scenario registry, schemas and source-specific terms. Scenario descriptors record horizon, composition and spatial supports; metadata records storage/columns; lineage records derivations; validation records verification results. Identifiers and accepted hashes remain unchanged when host-specific execution records are omitted.
+Each region keeps an independent accepted scientific fingerprint, source lineage, spatial supports and native weekly fuel artifact. No shared-location assumption follows from a shared UTC horizon. Missing region entries, duplicate IDs, mismatched fingerprints, hourly support errors, native fuel expansion and cross-region metadata/path collisions fail validation. Global metadata records versions, sources, snapshot/acquisition references, scenario registry, schemas and source-specific terms. Scenario descriptors record horizon, composition and spatial supports; metadata records storage/columns; lineage records derivations; validation records verification results. Identifiers and accepted hashes remain unchanged when host-specific execution records are omitted.
 
 Scientific composition, sanitized public composition and release identity are distinct named identities. The release identity covers the authoritative package inventory and publication metadata; it must not be confused with the accepted scientific fingerprint. Portable relative POSIX paths, deterministic JSON serialization and SHA-256 checksums support verification. Root checksums exclude themselves and include scenario checksum files; scenario checksums exclude themselves. Changing a package's authoritative bytes requires a newly reviewed package identity; retained candidates are not edited in place.
 
